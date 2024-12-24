@@ -1,0 +1,2989 @@
+Source: https://docs.envio.dev/docs/HyperIndex/overview
+Date Scraped: 2024-12-24T15:32:14.863Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Overview
+
+Version: v2
+
+On this page
+
+---
+# Overview
+
+HyperIndex is an open development framework for building backend's for blockchain applications. It is designed to be easy to use, extremely fast, and extensible.
+
+---
+## Features
+
+```codeBlockLines_e6Vv
+✅ - Quickstart templates  
+✅ - Real-time indexing  
+✅ - Multichain indexing  
+✅ - Local development  
+✅ - Reorg support  
+✅ - GraphQL API  
+✅ - Any EVM & Fuel  
+✅ - 5000+ events indexed per second historical backfill  
+✅ - Auto generate an indexer with contract address  
+✅ - Flexible language support (JavaScript, TypeScript, ReScript)  
+✅ - 100,000+ factory contracts support  
+✅ - Onchain & offchain data support  
+✅ - Hosted service or easy self hosting  
+✅ - Detailed logging & error messaging  
+✅ - Actions to trigger external API services  
+✅ - Topic based indexing support (wildcard indexing)
+```
+
+---
+## Features roadmap
+
+```codeBlockLines_e6Vv
+⬜ - Interval handlers  
+⬜ - Block handlers  
+⬜ - Call handlers  
+⬜ - Alternative data syncs
+```
+
+---
+## Quick links
+
+-   [Github](https://github.com/enviodev/hyperindex) ⭐
+-   [Support](https://discord.gg/Q9qt8gZ2fX)
+
+note
+
+Please use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/overview.md)
+
+[
+
+Next
+
+Getting Started
+
+](/docs/HyperIndex/getting-started)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/getting-started
+Date Scraped: 2024-12-24T15:32:15.097Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Getting Started
+
+Version: v2
+
+On this page
+
+---
+# Getting Started
+
+---
+## Indexer Initalization
+
+---
+### Prerequisites
+
+The following are the prerequisite packages required for Envio:
+
+1.  [Node.js](https://nodejs.org/en/download/current) (use [v18](https://nodejs.org/download/release/v18.18.0/) or newer)
+2.  [pnpm](https://pnpm.io/installation) (use v8 or newer)
+3.  [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+Docker is required specifically for running the Envio indexer locally.
+
+Once you have completed the prerequisites step, you can initialize your own indexer via the following options:
+
+---
+### Quickstart
+
+Generate an indexer quickly based on one or more smart contract(s) deployed on a blockchain.
+
+More information on [the Quickstart](/docs/HyperIndex/contract-import) can be found in this documentation.
+
+---
+### Templates
+
+Select either the `ERC20`, `Greeter`, or `Blank` template following the `envio init` command.
+
+More information on [the `Greeter` template](/docs/HyperIndex/greeter-tutorial) is available.
+
+---
+### Examples
+
+Clone one of the example indexers that have been built using Envio. Reference indexers can be found via our [Explorer](https://envio.dev/explorer), [Tutorials](/docs/HyperIndex/tutorial-erc20-token-transfers), or in our [GitHub](https://github.com/enviodev).
+
+> Please take note of the difference in the version of Envio which the indexer was built on and the [latest version on npm](https://www.npmjs.com/package/envio). There may be some adjustments required to the indexer to be compatible with the latest version of Envio.
+
+---
+## Indexer Configuration
+
+Indexers generated using the Quickstart, templates, or examples will work without any further configuration.
+
+Users can further configure their indexers to perform custom logic, by modifying the 3 files:
+
+-   [`config.yaml`](/docs/HyperIndex/configuration-file)
+-   [`schema.graphql`](/docs/HyperIndex/schema)
+-   [`EventHandlers.*`](/docs/HyperIndex/event-handlers)
+
+> (\* depending on the language chosen for the indexer)
+
+---
+## Run the Indexer
+
+---
+### Run locally
+
+Users can run the indexer locally without deploying, using [Docker](https://www.docker.com/products/docker-desktop/) and [Hasura](https://hasura.io/).
+
+There is more information on [running the indexer locally](/docs/HyperIndex/running-locally).
+
+---
+### Deploy to Hosted Service
+
+Once the indexer has been configured, you can easily deploy your indexer to Envio's hosted service and start querying your endpoint.
+
+More information on [the hosted service](/docs/HyperIndex/hosted-service) is available.
+
+* * *
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/getting-started.md)
+
+[
+
+Previous
+
+Overview
+
+](/docs/HyperIndex/overview)[
+
+Next
+
+Quickstart
+
+](/docs/HyperIndex/contract-import)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/contract-import
+Date Scraped: 2024-12-24T15:32:15.967Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Quickstart
+
+Version: v2
+
+On this page
+
+---
+# Quickstart
+
+The Quickstart allows you to instantly autogenerate a basic indexer and query your data. This is the quickest way to get going and likely the starting point for most developers.
+
+For example, you could autogenerate an indexer for Eigenlayer AND index the entire Eigenlayer contract in under 5 minutes simply through running `envio init` and pasting the contract address from the Block Explorer: [https://etherscan.io/address/0x858646372cc42e1a627fce94aa7a7033e7cf075a](https://etherscan.io/address/0x858646372cc42e1a627fce94aa7a7033e7cf075a)
+
+---
+## Instructions
+
+To start, simply run:
+
+```codeBlockLines_e6Vv
+envio init
+```
+
+After selecting the name, directory and preferred language for the indexer, choose `Contract Import` as the initialization option.
+
+```codeBlockLines_e6Vv
+? Choose an initialization option  
+  Template> Contract Import  
+[↑↓ to move, enter to select, type to filter]
+```
+
+Contract Import allows you to quickly generate your indexer with:
+
+1.  Block Explorer
+2.  Local ABI
+
+---
+### 1\. Block Explorer
+
+```codeBlockLines_e6Vv
+? Would you like to import from a block explorer or a local abi?  
+> Block Explorer  
+  Local ABI[↑↓ to move, enter to select, type to filter]
+```
+
+The `Block Explorer` option only requires you to input the address and chain of the contract. If the deployed contract is verified and has one of the supported explorers (Etherscan, Routescan, etc.) it will retrieve all needed contract information from the block explorer. The list of available chains will be presented in the Envio CLI.
+
+---
+#### Select the blockchain that the contract is deployed on
+
+```codeBlockLines_e6Vv
+? Which blockchain would you like to import a contract from?  
+> ethereum-mainnet  
+  goerli  optimism  base  bsc  gnosisv polygon  
+[↑↓ to move, enter to select, type to filter]
+```
+
+note
+
+HyperIndex supports indexing smart contract data from any EVM blockchain. If the chain you would like to index is not available on the list, you can use the ABI file option. Alternatively, you choose the same contract on an available network on the list, and change the chain configuration in the config file after the indexer is initialized.
+
+---
+#### Enter in the address of the contract to import
+
+```codeBlockLines_e6Vv
+? What is the address of the contract?  
+[Use the proxy address if your abi is a proxy implementation]
+```
+
+note
+
+If you are using a proxy contract with an implementation, the contract address you specify should be for the proxy contract.
+
+---
+#### Choose which events to include in the `config.yaml` file
+
+```codeBlockLines_e6Vv
+? Which events would you like to index?  
+> [x] ClaimRewards(address indexed from, address indexed reward, uint256 amount)  
+  [x] Deposit(address indexed from, uint256 indexed tokenId, uint256 amount)  [x] NotifyReward(address indexed from, address indexed reward, uint256 indexed epoch, uint256 amount)  [x] Withdraw(address indexed from, uint256 indexed tokenId, uint256 amount)[↑↓ to move, space to select one, → to all, ← to none, type to filter]
+```
+
+---
+#### Select the continuation option
+
+```codeBlockLines_e6Vv
+? Would you like to add another contract?  
+> I'm finished  
+  Add a new address for same contract on same network  Add a new network for same contract  Add a new contract (with a different ABI)[Current contract: BribeVotingReward, on network: optimism]
+```
+
+The Quickstart will prompt you whether you would like to finish the import process or continue adding more addresses for same contract on same network, addresses for same contract on different network or a different contract.
+
+---
+### 2\. Local ABI
+
+```codeBlockLines_e6Vv
+? Would you like to import from a block explorer or a local abi?  
+  Block Explorer> Local ABI  
+[↑↓ to move, enter to select, type to filter]
+```
+
+Choosing `Local ABI` option will allow you to point to a JSON file containing the smart contract ABI. The Quickstart will then populate the required files from the ABI.
+
+> Select this option if the proxy contract has not been verified, which will cause the fetch request from Etherscan client to fail.
+
+---
+#### Specify the directory of JSON file containing ABI
+
+```codeBlockLines_e6Vv
+? What is the path to your json abi file?
+```
+
+---
+#### Choose which events to include in the `config.yaml` file
+
+```codeBlockLines_e6Vv
+? Which events would you like to index?  
+> [x] ClaimRewards(address indexed from, address indexed reward, uint256 amount)  
+  [x] Deposit(address indexed from, uint256 indexed tokenId, uint256 amount)  [x] NotifyReward(address indexed from, address indexed reward, uint256 indexed epoch, uint256 amount)  [x] Withdraw(address indexed from, uint256 indexed tokenId, uint256 amount)[↑↓ to move, space to select one, → to all, ← to none, type to filter]
+```
+
+---
+#### Specify which chain the contract is deployed on
+
+```codeBlockLines_e6Vv
+? Choose network:  
+> <Enter Network Id>  
+  ethereum-mainnet  goerli  optimism  base  bscv gnosis  
+[↑↓ to move, enter to select, type to filter]
+```
+
+---
+#### Enter in the name for the contract
+
+```codeBlockLines_e6Vv
+? What is the name of this contract?
+```
+
+---
+#### Enter in the address of the contract
+
+```codeBlockLines_e6Vv
+? What is the address of the contract?  
+[Use the proxy address if your abi is a proxy implementation]
+```
+
+note
+
+If you are using a proxy contract with an implementation, the contract address you specify should be for the proxy contract.
+
+---
+#### Select the continuation option
+
+```codeBlockLines_e6Vv
+? Would you like to add another contract?  
+> I'm finished  
+  Add a new address for same contract on same network  Add a new network for same contract  Add a new contract (with a different ABI)[Current contract: BribeVotingReward, on network: optimism]
+```
+
+The Quickstart will prompt you whether you would like to finish the import process or continue adding more addresses for same contract on same network, addresses for same contract on different network or a different contract.
+
+---
+## Configuration file
+
+The contract-specific details that will be automatically populated in the `config.yaml` file are:
+
+-   Network ID
+-   Start Block
+-   Contract Name
+-   Contract Address
+-   Event Signature (for all events) with `requiredEntities`
+
+Users can remove the events from the configuration file which do not need to be indexed. By default the contract import process populates the configuration file for all events.
+
+For more information on how to write the configuration file, go [here](/docs/HyperIndex/configuration-file).
+
+However, users are not required to do make any changes to the `config.yaml` file for the indexer to run.
+
+---
+## Schema
+
+By default, the contract import process will create an entity for each event in the contract. The fields in these entities will correspond to the parameters that are emitted inside the event.
+
+Additionally, `EventsSummary` entity will be created that:
+
+-   Stores a count of how many entities of each type have been created
+-   Links to a vector of entities of each type that have been created
+
+For more information on how to write the schema file, go [here](/docs/HyperIndex/schema).
+
+---
+## Event Handlers
+
+Loaders and handlers for each event will be automatically generated.
+
+For all events, the loader function will load `EventsSummary` entity using a fixed key to be updated in the handler.
+
+For all events, the handler function will perform two operations:
+
+-   Create an instance of the event-specific entity with all the parameters that have been emitted
+-   Update the event-specific entity counter in the loaded `EventsSummary` entity
+
+For more information on how to write the event handlers file, go [here](/docs/HyperIndex/event-handlers).
+
+* * *
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/contract-import.md)
+
+[
+
+Previous
+
+Getting Started
+
+](/docs/HyperIndex/getting-started)[
+
+Next
+
+Migration Guide v1 to v2
+
+](/docs/HyperIndex/migration-guide-v1-v2)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/configuration-file
+Date Scraped: 2024-12-24T15:32:16.466Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Guides
+-   Setting up Configuration File
+
+Version: v2
+
+On this page
+
+---
+# Setting up Configuration File
+
+The `config.yaml` outlines the specifications for the indexer, including network and contract details, as well as event information to be used in the indexing process. For a full specification, view the below.
+
+---
+## Example Configuration
+
+Here is an example `config.yaml` from the TypeScript Greeter template:
+
+```codeBlockLines_e6Vv
+
+---
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json  
+name: Greeter  
+description: Greeter indexer  
+#Global contract definitions that must contain all definitions except  
+#addresses. Now you can share a single handler/abi/event definitions  
+#for contracts across multiple chains  
+contracts:  
+  - name: Greeter    abi_file_path: ./abis/greeter-abi.json    handler: ./src/EventHandlers.ts    events:      - event: NewGreeting      - event: ClearGreetingnetworks:  
+  - id: 137 # Polygon    start_block: 45336336    contracts:      - name: Greeter #A reference to the global contract definition        address: 0x9D02A17dE4E68545d3a58D3a20BbBE0399E05c9c  - id: 59144 # Linea    start_block: 367801    contracts:      - name: Greeter #A reference to the global contract definition        address: 0xdEe21B97AB77a16B4b236F952e586cf8408CF32A
+```
+
+Once you have set up your config file and the [schema](/docs/HyperIndex/schema), you are ready to generate the indexing code required to write the event handlers.
+
+Run the following command:
+
+```codeBlockLines_e6Vv
+envio codegen
+```
+
+---
+## Contract Addresses
+
+For the `address` field in the configuration file, use the address that emits the events.
+
+-   **Transparent Proxy Pattern:** Use the address of the proxy contract, as this is the contract that emits the events. Retrieve the ABI from the implementation contract.
+-   **No Proxy Contract:** Use the same address from which the ABI was obtained.
+
+If multiple contract addresses need to be indexed, they can be entered as an array like `["0xAddress1", "0xAddress2"]` or in a dash-denominated list as seen in this [example](https://github.com/enviodev/univ3ethusdc-pool-multichain/blob/main/config.yaml) repo.
+
+You can also choose to omit the address field for use cases like a factory contract where addresses will be dynamically registered during the indexing process.
+
+---
+## Human-Readable ABI Format
+
+In the configuration, you can optionally pass the file path to the ABI for a contract in the `abi_file_path` field, or you can specify the event signature in the event field.
+
+Here is an example from the above configuration:
+
+```codeBlockLines_e6Vv
+events:  
+  - event: "NewGreeting(address user, string greeting)"  - event: "ClearGreeting(address user)"
+```
+
+More information on Human Readable ABI parsing is available [here](https://docs.rs/ethers-core/latest/ethers_core/abi/struct.AbiParser.html).
+
+> **Dev note:** An error in the ABI or the event signature will result in the events not matching, and they may not reflect in the `raw_events_table` or propagate correctly into the event handler logic.
+
+---
+## Custom Event Names
+
+This is useful when you want to have a different name on the Envio side; or index events with the same name but different signatures:
+
+```codeBlockLines_e6Vv
+- event: Assigned(address indexed recipientId, uint256 amount, address token)  
+- event: Assigned(address indexed recipientId, uint256 amount, address token, address sender)  
+  name: AssignedWithSender
+```
+
+---
+## Field Selection
+
+Field selection allows you to add specific data points to each event that gets passed to your handlers. For a complete list of available fields, refer to the below.
+
+By default, the `block_fields` include `number`, `hash`, and `timestamp` without requiring additional configuration.
+
+In the Fuel version, these default to the `height`, `id`, and `time` fields for blocks, along with the `id` field for transactions. Note that custom field selection is not supported for Fuel.
+
+_Note_: For indexing from RPC in versions below `[[email protected]](/cdn-cgi/l/email-protection)`, only `hash` and `transactionIndex` are supported in `transaction_fields`. If you encounter this limitation, consider upgrading to a more recent version to access improved functionality.
+
+```codeBlockLines_e6Vv
+field_selection:  
+  transaction_fields:    - "hash"    - "transactionIndex"    - "gasUsed"  block_fields:    - "parentHash"
+```
+
+---
+### Field Selection per Event
+
+Starting with `[[email protected]](/cdn-cgi/l/email-protection)`, you can specify field selection for individual events. This feature is useful for optimizing RPC and HyperSync calls by fetching only the data relevant to specific events, avoiding over-fetching.
+
+Per-event field selection overrides any global field selection, ensuring precise data handling for each event.
+
+```codeBlockLines_e6Vv
+events:  
+  - event: "Transfer(address indexed from, address indexed to, uint256 value)"    field_selection:      transaction_fields:        - "to"        - "from"
+```
+
+---
+## Environment Variables Interpolation
+
+Starting from `[[email protected]](/cdn-cgi/l/email-protection)` the config file can use Environment Variables to offer more flexibility. If you want to switch between different configurations quickly, you don't need to edit the config file each time; you can just set Environment Variables at run time.
+
+Below is a simple example:
+
+```codeBlockLines_e6Vv
+networks:  
+  - id: ${ENVIO_CHAIN_ID:-137}    start_block: ${ENVIO_START_BLOCK:-45336336}    contracts:      - name: Greeter        address: ${ENVIO_GREETER_ADDRESSES}
+```
+
+Then you can run `ENVIO_GREETER_ADDRESSES=0x9D02A17dE4E68545d3a58D3a20BbBE0399E05c9c pnpm dev`, or set the values via the `.env` or the indexer settings page on the Hosted Service.
+
+---
+### Interpolation syntax
+
+For the interpolation to be applied, the Environment Variable name should be placed in braces after a dollar sign (`${VAR}`).
+
+For braced expressions, the following formats are supported:
+
+Direct substitution
+
+-   `${VAR}` -> value of `VAR`
+
+Default value
+
+-   `${VAR:-default}` -> value of `VAR` if set and non-empty, otherwise `default`
+-   `${VAR-default}` -> value of `VAR` if set, otherwise `default`
+
+---
+### Ways to set variables with interpolation
+
+Envio can interpolate variables into your config file from multiple sources.
+
+Note that when the same variable is declared by multiple sources, precedence applies:
+
+1.  Variables from your shell environment
+2.  Variables set via Hosted Service
+3.  Variables set by a `.env` file in the root indexer directory
+
+---
+## Additional Guidelines
+
+-   The contract name field (`Greeter` in the example above) should contain a single word, as it is used to create a namespace for functions in the indexer.
+-   The address field should contain the address of the proxy contract, which emits the events on the specified blockchain.
+-   If the human-readable ABI format is not used, the ABI referenced in the config file needs to be copied from the implementation contract into the specified ABI directory.
+
+---
+## Explorer
+
+Loading ....
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Guides/configuration-file.mdx)
+
+[
+
+Previous
+
+HyperIndex Basics
+
+](/docs/HyperIndex/hyperindex-basics)[
+
+Next
+
+Defining the Schema
+
+](/docs/HyperIndex/schema)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/schema
+Date Scraped: 2024-12-24T15:32:17.092Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Guides
+-   Defining the Schema
+
+Version: v2
+
+On this page
+
+---
+# Defining the Schema
+
+The `schema.graphql` file serves as a representation of your application's data model. It defines entity types that directly correspond to database tables, and the event handlers you create are responsible for creating and updating records within those tables. Additionally, the GraphQL API is automatically generated based on the entity types specified in the `schema.graphql` file, to allow access to the indexed data.
+
+Entity types are identified with the directive within the `schema.graphql` file.
+
+Example schema from the Greeter template:
+
+```codeBlockLines_e6Vv
+type User {  
+  id: ID!  greetings: [String!]!  latestGreeting: String!  numberOfGreetings: Int!}
+```
+
+Every entity type must include an `id` field that is of type `ID!`, `String!`, `Int!`, `Bytes!`, or `BigInt!`. The `id` field serves as a unique identifier for each instance of the entity.
+
+---
+### Enums
+
+The schema file also supports the use of enum types. An example of an enum definition and usage within the schema is shown below:
+
+```codeBlockLines_e6Vv
+enum AccountType {  
+  ADMIN  USER}  
+type User {  
+  id: ID!  balance: Int!  accountType: AccountType!}
+```
+
+Enum types are generated as string union types for TypeScript and JavaScript and as polymorphic variants for ReScript. Therefore to set an enum field in an entity in TypeScript and JavaScript, the string of the enum value is used:
+
+```codeBlockLines_e6Vv
+import { AccountType } from "../generated/src/Enums.gen";  
+  
+let accountType: AccountType = "USER";  
+  
+let user = {  
+  id: event.params.id,  balance: event.params.balance,  accountType,};
+```
+
+For ReScript, we use the polymorphic variant
+
+```codeBlockLines_e6Vv
+let accountType: Enums.accountType = #USER;  
+  
+let user: Types.userEntity = {  
+  id: event.params.id,  balance: event.params.balance,  accountType};
+```
+
+---
+### Scalar Types
+
+In GraphQL, scalars represent fundamental data types such as strings and numbers. Each GraphQL scalar is mapped to a corresponding JavaScript, TypeScript, or ReScript type, which is used in event handler code, depending on the language chosen. The following table provides an overview of the available scalar types, along with their associated JavaScript, TypeScript, and ReScript types:
+
+**Name**
+
+**Description**
+
+**JavaScript/TypeScript Type**
+
+**ReScript Type**
+
+ID
+
+A unique identifier field
+
+string
+
+string
+
+String
+
+A UTF-8 character sequence
+
+string
+
+string
+
+Int
+
+A signed 32-bit integer
+
+number
+
+int
+
+Float
+
+A signed floating-point value
+
+number
+
+float
+
+Boolean
+
+Represents a true or false value
+
+boolean
+
+bool
+
+Bytes
+
+A UTF-8 character sequence with a 0x prefix
+
+string
+
+string
+
+BigInt
+
+A signed integer (equivalent to solidity int256)
+
+bigint
+
+bigint
+
+BigDecimal
+
+An arbitrary size floating point number
+
+BigDecimal (imported from "generated")
+
+BigDecimal.t
+
+Timestamp
+
+Timestamp with time zone
+
+Date
+
+Js.Date.t
+
+You can find out more on GraphQL [here](https://graphql.org/learn/).
+
+Once you have set up your config and schema file you can run `envio codegen` to generate the functions that you will use in your handlers.
+
+```codeBlockLines_e6Vv
+envio codegen
+```
+
+---
+## Defining One-to-Many Relationships
+
+```codeBlockLines_e6Vv
+type NftCollection {  
+  id: ID!  contractAddress: Bytes!  name: String!  symbol: String!  maxSupply: BigInt!  currentSupply: Int!  tokens: [Token!]! @derivedFrom(field: "collection")}
+```
+
+```codeBlockLines_e6Vv
+type Token {  
+  id: ID!  tokenId: BigInt!  collection: NftCollection!  owner: User!}
+```
+
+Assume that each `NftCollection` can have multiple `Token` objects. This is represented by the `[Token!]` in `NftCollection` definition, where the field's type is set to another entity type.
+
+When you create a `Token` entity, the value of the `collection` field is set to the `id` of its associated `NftCollection` entity.
+
+Note that in the `NftCollection` schema, the `tokens` field can't be directly accessed or modified. Fields marked with the `@derivedFrom` directive function are virtual fields and are only accessible when executing GraphQL API queries. This is commonly known as **reverse lookup**, as the relationship is established on the "many" end of the association.
+
+---
+## Adding Indexes to Fields
+
+Add an index to a field to [improve read performance](/docs/HyperIndex/database-performance-optimization) and enable field queries in your loaders.
+
+Indices will automatically be added to all entity `id` fields and all fields referenced using `@derivedFrom` directive.
+
+---
+### Example
+
+```codeBlockLines_e6Vv
+type Token {  
+  id: ID!  tokenId: BigInt!  collection: NftCollection!  owner: User! @index}
+```
+
+---
+## Advanced: @config Directive for Decimal Precision of `BigInt` and `BigDecimal` Fields
+
+When working with large integers or high-precision decimal numbers in your application, you might need to customize the precision and scale of your `BigInt` and `BigDecimal` fields. This ensures that your database stores these numbers accurately according to your specific requirements. If you know your numbers will not be too big, you can also optimize the database by not over-allocating on the precision.
+
+---
+### Using the `@config` Directive
+
+The `@config` directive allows you to specify custom configurations for fields. For `BigInt` and `BigDecimal` types, you can define precision and scale parameters.
+
+**Syntax for `BigInt`:**
+
+```codeBlockLines_e6Vv
+fieldName: BigInt @config(precision: <number_of_digits>)
+```
+
+**Syntax for `BigDecimal`:**
+
+```codeBlockLines_e6Vv
+fieldName: BigDecimal @config(precision: <total_digits>, scale: <decimal_digits>)
+```
+
+**Example:**
+
+```codeBlockLines_e6Vv
+type Entity {  
+    id: ID!    amount: BigInt @config(precision: 76)    price: BigDecimal @config(precision: 10, scale: 2)}
+```
+
+In this example:
+
+-   The `amount` field is a `BigInt` with up to 76 digits.
+-   The `price` field is a `BigDecimal` with a total of 10 digits and 2 decimal places.
+
+Click to expand a complete example of `@config` directive usage
+
+---
+### Complete Example Usage
+
+```codeBlockLines_e6Vv
+type Entity {  
+    id: ID!    exampleBigInt: BigInt @config(precision: 76)    exampleBigIntRequired: BigInt! @config(precision: 77)    exampleBigIntArray: [BigInt!] @config(precision: 78)    exampleBigIntArrayRequired: [BigInt!]! @config(precision: 79)    exampleBigDecimal: BigDecimal @config(precision: 80, scale: 5)    exampleBigDecimalRequired: BigDecimal! @config(precision: 81, scale: 5)    exampleBigDecimalArray: [BigDecimal!] @config(precision: 82, scale: 5)    exampleBigDecimalArrayRequired: [BigDecimal!]! @config(precision: 83, scale: 5)}
+```
+
+---
+### Postgres Precision and Scale Details
+
+Click to expand Postgres precision and scale details
+
+In PostgreSQL, the `NUMERIC` data type is used to store exact numeric values with user-defined precision and scale. Understanding how these work is crucial when customizing your numeric fields.
+
+-   **Precision:** Total number of significant digits in the number (both to the left and right of the decimal point).
+-   **Scale:** Number of digits after the decimal point.
+
+**Examples:**
+
+-   A number `12345.678` has a precision of 8 and a scale of 3.
+-   With a `NUMERIC(10, 2)` data type, you can store numbers up to `99999999.99`.
+
+**Key Points:**
+
+-   **Precision and Scale Limits:**
+    
+    -   The maximum number of digits to the left of the decimal point is `precision - scale`.
+    -   The total number of digits cannot exceed the specified precision.
+-   **Rounding and Truncation:**
+    
+    -   If you insert a number with more decimal places than the specified scale, PostgreSQL will round it.
+    -   If the integer part exceeds the allowed digits (precision - scale), PostgreSQL will raise an error.
+-   **Storage Size:**
+    
+    -   The storage size of a `NUMERIC` field depends on its declared precision.
+
+By customizing precision and scale in your schema, you directly influence how PostgreSQL stores and validates your numeric data, ensuring data integrity and optimal storage usage.
+
+**Additional Resources:**
+
+-   [PostgreSQL Numeric Types Documentation](https://www.postgresql.org/docs/current/datatype-numeric.html)
+
+* * *
+
+---
+## Other Design Tips
+
+-   Use lowercase for the first letter of field names (i.e. `latestGreeting` and `numberOfGreetings`) inside entities.
+
+* * *
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Guides/schema-file.md)
+
+[
+
+Previous
+
+Setting up Configuration File
+
+](/docs/HyperIndex/configuration-file)[
+
+Next
+
+Writing Event Handlers
+
+](/docs/HyperIndex/event-handlers)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/event-handlers
+Date Scraped: 2024-12-24T15:32:17.935Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Guides
+-   Writing Event Handlers
+
+Version: v2
+
+On this page
+
+---
+# Writing Event Handlers
+
+Once the configuration and schema files are in place, run:
+
+```codeBlockLines_e6Vv
+envio codegen
+```
+
+in the project directory to generate the functions you will use in your handlers.
+
+Each event that you want to process requires that a handler be registered. These functions are asynchronous.
+
+**Note:** _Two other functions, `handlerWithLoader` and `contractRegister`, are also sometimes used but not required for most indexers. Both functions are explored in the Advanced section. `handlerWithLoader` is used to optimize the loading of entities from the database, and accessing one-to-many relationships on entities, `contractRegister` is used for registering addresses dynamically from a factory contract._
+
+---
+## Handler Function
+
+Handler functions are called via:
+
+-   Typescript
+-   Javascript
+-   Rescript
+
+```codeBlockLines_e6Vv
+import { <CONTRACT_NAME> } from "generated";  
+  
+<CONTRACT_NAME>.<EVENT_NAME>.handler(async ({ event, context }) => {  
+  // Your logic});
+```
+
+```codeBlockLines_e6Vv
+const { <CONTRACT_NAME> } = require("generated");  
+  
+<CONTRACT_NAME>.<EVENT_NAME>.handler(async ({ event, context }) => {  
+  // Your logic});
+```
+
+```codeBlockLines_e6Vv
+Handlers.<CONTRACT_NAME>.<EVENT_NAME>.handler(async ({ event, context }) => {  
+  // Your logic});
+```
+
+---
+### Event
+
+---
+#### Event Params
+
+Handler functions are used to modify the entities that have been loaded by the loader function and should contain all the required logic for updating entities with the raw data emitted by the event. All of the parameters emitted in each event are accessible via `event.params.<PARAMETER_NAME>`.
+
+---
+#### Additional Event Information
+
+Additional event information can also be accessed via `event.<EVENT_PROPERTY>`.
+
+Below is an example type of an event:
+
+```codeBlockLines_e6Vv
+type Event<Params, TransactionFields, BlockFields> = {  
+  params: Params;  chainId: number;  srcAddress: string;  logIndex: number;  transaction: TransactionFields;  block: BlockFields;};
+```
+
+Note that the fields `block` and `transaction` type will depend on configured values in `field_selection` of your `config.yaml`.
+
+For instance, if you add the following to your `config.yaml`:
+
+```codeBlockLines_e6Vv
+field_selection:  
+  transaction_fields:    - "hash"    - "transactionIndex"    - "gasUsed"  block_fields:    - "parentHash"
+```
+
+You can expect to get:
+
+```codeBlockLines_e6Vv
+type TransactionFields = {  
+  hash: string;  transactionIndex: number;  gasUsed: bigint;};  
+  
+type AdditionalBlockFields = {  
+  parentHash: string;};  
+  
+type BlockFields = {  
+  // number, timestamp, and hash are always available by default  number: number;  timestamp: number;  hash: string;} & AdditionalBlockFields;
+```
+
+It is recommended to add `# yaml-language-server: $schema=./node_modules/envio/evm.schema.json` to the top of your `config.yaml` to help with editor autocompletion.
+
+---
+### Context
+
+In your handler functions, you can access entities in the database via the asynchronous `get` function as shown below:
+
+```codeBlockLines_e6Vv
+await context.<ENTITY_NAME>.get(<ID>);
+```
+
+The context also contains some logging functions that include the context automatically. You can also use `console.log`.
+
+> Dev note: 📢 For indexers built using `ReScript`, use a lowercase for the first letter of `entityName` when accessing it via context (i.e., `context.user` instead of `context.User`).
+
+In addition to the `get` function, which is a read-only action, two write actions are provided in the context:
+
+-   `set`
+-   `deleteUnsafe`
+
+Used as follows:
+
+```codeBlockLines_e6Vv
+context.<ENTITY_NAME>.set(<ENTITY_OBJECT>);
+```
+
+and
+
+```codeBlockLines_e6Vv
+context.<ENTITY_NAME>.deleteUnsafe(<ENTITY_OBJECT>.id);
+```
+
+The `set` method is used to either create an entity or to update an existing entity with the values defined in the `entityObject`. The `deleteUnsafe` method is an experimental feature that allows you to remove an entity with a particular ID from the database and indexer memory. This is an **unsafe** function since there may be unexpected repercussions when a deleted entity is linked to another entity. It is your responsibility to delete/fix these references manually.
+
+---
+### Example of Registering a Handler Function for the `NewGreeting` Event
+
+-   Javascript
+-   Typescript
+-   Rescript
+
+```codeBlockLines_e6Vv
+let { Greeter } = require("generated");  
+  
+Greeter.NewGreeting.handler(async ({ event, context }) => {  
+  let existingUser = await context.User.get(event.params.user.toString());  
+  if (existingUser !== undefined) {    context.User.set({      id: event.params.user.toString(),      latestGreeting: event.params.greeting,      numberOfGreetings: existingUser.numberOfGreetings + 1,      greetings: [...existingUser.greetings, event.params.greeting],    });  } else {    context.User.set({      id: event.params.user.toString(),      latestGreeting: event.params.greeting,      numberOfGreetings: 1,      greetings: [event.params.greeting],    });  }});
+```
+
+```codeBlockLines_e6Vv
+import { Greeter, User } from "generated";  
+  
+Greeter.NewGreeting.handler(async ({ event, context }) => {  
+  let currentUser = await context.User.get(event.params.user.toString());  
+  if (currentUser !== undefined) {    let userObject: User = {      id: event.params.user.toString(),      latestGreeting: event.params.greeting,      numberOfGreetings: currentUser.numberOfGreetings + 1,      greetings: [...currentUser.greetings, event.params.greeting],    };  
+    context.User.set(userObject);  } else {    let userObject: User = {      id: event.params.user.toString(),      latestGreeting: event.params.greeting,      numberOfGreetings: 1,      greetings: [event.params.greeting],    };    context.User.set(userObject);  }});
+```
+
+```codeBlockLines_e6Vv
+open Types  
+  
+Handlers.Greeter.NewGreeting.handler(async ({ event, context }) => {  
+  let currentUserOpt = context.user.get(event.params.user->Ethers.ethAddressToString);  
+  switch currentUserOpt {  | Some(existingUser) => {      let userObject: user = {        id: event.params.user->Ethers.ethAddressToString,        latestGreeting: event.params.greeting,        numberOfGreetings: existingUser.numberOfGreetings + 1,        greetings: existingUser.greetings->Belt.Array.concat([event.params.greeting]),      };  
+      context.user.set(userObject);    }  
+  | None => {      let userObject: user = {        id: event.params.user->Ethers.ethAddressToString,        latestGreeting: event.params.greeting,        numberOfGreetings: 1,        greetings: [event.params.greeting],      };  
+      context.user.set(userObject);    }  }});
+```
+
+-   This `context` is the gateway by which the user can interact with the indexer and the underlying database.
+-   The user can then retrieve and modify this entity and subsequently 'set' the `User` entity in the database.
+-   The user has access to a `User` type that has all the fields defined in the schema.
+
+---
+## Config Data in the Handler
+
+We expose the `config.yaml` data in the handler via `getConfigByChainId`. The below code snippets show how to access the `config.yaml` data in the handler and the available data:
+
+-   Javascript
+-   Typescript
+-   Rescript
+
+```codeBlockLines_e6Vv
+let { getConfigByChainId } = require("../generated/src/ConfigYAML.bs.js");  
+  
+Greeter.NewGreeting.handler(async ({ event, context }) => {  
+  let config = getConfigByChainId(event.chainId);});
+```
+
+```codeBlockLines_e6Vv
+import { getConfigByChainId } from "../generated/src/ConfigYAML.gen";  
+  
+Greeter.NewGreeting.handler(async ({ event, context }) => {  
+  let config = getConfigByChainId(event.chainId);});
+```
+
+```codeBlockLines_e6Vv
+open Types  
+  
+Handlers.Greeter.NewGreeting.handler(async ({ event, context }) => {  
+  let config = ConfigYAML.getConfigByChainId(event.chainId);})
+```
+
+---
+### configYaml
+
+-   `syncSource` - Source where the indexer is syncing from
+-   `startBlock` - Block number from which the indexer is syncing
+-   `confirmedBlockThreshold` - Number of blocks to wait before a block is considered confirmed (relevant to reorgs)
+-   `contracts` - An object of contract data where the key is the contract name
+
+---
+### Contracts
+
+-   `config.contracts.<CONTRACT_NAME>.abi` - ABI of the contract
+-   `config.contracts.<CONTRACT_NAME>.addresses` - An array of addresses of the contract
+-   `config.contracts.<CONTRACT_NAME>.events` - An array of event names emitted by the contract
+
+* * *
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Guides/event-handlers.mdx)
+
+[
+
+Previous
+
+Defining the Schema
+
+](/docs/HyperIndex/schema)[
+
+Next
+
+Testing
+
+](/docs/HyperIndex/testing)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/migration-guide-v1-v2
+Date Scraped: 2024-12-24T15:32:18.186Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Migration Guide v1 to v2
+
+Version: v2
+
+On this page
+
+---
+# Migration Guide: HyperIndex v1 to v2
+
+---
+## Introduction
+
+Welcome to HyperIndex v2 - a major upgrade that significantly enhances your indexing experience! This new version introduces asynchronous processing, streamlined workflows, and improved flexibility for your indexers. With v2, you'll benefit from faster development, better performance, and a more intuitive API.
+
+While the full release changes can be found in the [v2.0.0 release notes](https://github.com/enviodev/hyperindex/releases/tag/v2.0.0), here are some key highlights before we dive into the comprehensive migration guide:
+
+-   Handlers are now asynchronous, with `loaders` becoming an optional tool for additional optimizations.
+-   [Async-mode](/docs/HyperIndex/v1/async-mode) has been removed as it's no longer needed in v2.
+-   Loaders (when used) are more expressive and directly connected to the handler context via their return type.
+    -   In v2, you can access loader fields in the handler the same way you do in the loader, using an async 'get' function.
+    -   The return type of the loader can be used to directly access loaded data in the handler via the context.
+-   Indexing parameters with names that are reserved words in ReScript have been fixed.
+-   Validation and autocompletion for `config.yaml` is now available. Enable it by adding `# yaml-language-server: $schema=./node_modules/envio/evm.schema.json` at the top of your `config.yaml` file.
+
+These changes simplify the development process and provide a more consistent and powerful indexing experience. The following sections will guide you through the necessary steps to migrate your existing v1 indexers to v2.
+
+---
+## Changes to Make
+
+---
+### Handlers
+
+-   Handlers are now asynchronous - add the `async` keyword and rename `handlerAsync` to `handler`.
+-   You can use `handlerWithLoader` if you need a loader, otherwise, use `handler` directly.
+-   The 'get' function is now asynchronous, so add an `await` before those functions.
+-   No labeled entities.
+
+---
+### Loaders
+
+-   Loaders are merged into the handlers using `handlerWithLoader`.
+-   Loading linked entities is done directly with promises in the loader.
+-   Loaders are completely optional - only use the if you care about high throughput indexing.
+-   Loaders return the required entities which are then used in the handler.
+-   The dynamic contract registration moved from loaders to its own `<ContractName>.<EventName>.contractRegister` handler.
+-   The return type of the loader is used directly in the handler to access the loaded data. No need to re-'get' it again in the handler.
+
+---
+### Configuration
+
+-   There is no async-mode anymore, so you can remove `isAsync: true` from each of the events in your `config.yaml`.
+-   There is no more 'required\_entities' in the config file. This includes sub-fields such as `label` and `arrayLabels`.
+
+```codeBlockLines_e6Vv
+- isAsync: true
+```
+
+-   Removed entity labels and required entities.
+
+```codeBlockLines_e6Vv
+- required_entities:  
+-   - name: User
+```
+
+---
+#### Field Selection and Event Parameter Changes
+
+In v2, the structure of the `event` parameter has changed significantly. Some fields have been moved or renamed, and new fields are available through the `field_selection` configuration.
+
+Field selection allows you to add additional data points to each event that gets passed to your handlers. This feature enhances the flexibility and efficiency of your indexer, as by default you don't fetch data that isn't required.
+
+To use field selection, add a `field_selection` section to your `config.yaml` file. For example:
+
+```codeBlockLines_e6Vv
+field_selection:  
+  transaction_fields:    - "from"    - "to"    - "hash"    - "transactionIndex"  block_fields:    # Not required for migration, but more fields can be added here    - "parentHash"
+```
+
+For an exhaustive list of fields that can be added and more detailed information about field selection, please refer to the .
+
+Note: By default, `number`, `hash`, and `timestamp` are already selected for `block_fields` and do not need to be configured.
+
+---
+#### 'event' Parameter Changes
+
+The structure of the `event` parameter has changed in v2. This affects loaders, handlers, and dynamic contract registration. Here are the key changes:
+
+1.  Block and transaction fields are now scoped under `event.block` and `event.transaction` respectively.
+2.  Some field names have changed:
+    -   `event.txOrigin` is now `event.transaction.from` (requires adding to config)
+    -   `event.txTo` is now `event.transaction.to` (requires adding to config)
+    -   `event.txHash` is now `event.transaction.hash` (requires adding to config)
+    -   `event.blockTimestamp` is now `event.block.timestamp` (no config change)
+    -   `event.blockNumber` is now `event.block.number` (no config change)
+    -   `event.blockHash` is now `event.block.hash` (no config change)
+
+---
+### Miscellaneous breaking changes and deprecations
+
+-   The `context.Entity.load` function is deprecated and should be replaced with direct calls to `context.Entity.get` in the loader.
+-   The `context.ParentEntity.loadField` functions are deprecated and should be replaced with direct calls to `context.ChildEntity.get`.
+-   Remove the `Contract` and `Entity` suffixes from the generated code.
+-   For JavaScript/TypeScript users:
+    -   The event param names are not uncapitalized anymore. So you might need to change `event.params.capitalizedParamName` to `event.params.CapitalizedParamName`.
+-   For ReScript users:
+    -   We moved to the built-in `bigint` type instead of the `Ethers.BigInt.t`.
+    -   We migrated to ReScript 11 uncurried mode. Curried mode is not supported anymore. So you need to remove `uncurried: false` from your rescript.json file. Also, we vendored `RescriptMocha` bindings to support uncurried mode. Please use it instead of `rescript-mocha`.
+-   The config parsing is more strict, unknown fields will result in an error.
+    -   You can add `# yaml-language-server: $schema=./node_modules/envio/evm.schema.json` at the top of your 'config.yaml' file to get autocomplete and validation for the config file.
+
+---
+## Migration Steps
+
+---
+### 1\. Update Imports
+
+Replace the old import statements with the new ones.
+
+**Before:**
+
+```codeBlockLines_e6Vv
+import {  
+  GreeterContract_NewGreeting_handler,  // or you aren't using these `_` versions of the imports  GreeterContract,  // ...} from "../generated/src/Handlers.gen"; // Not all imports still look like this, but on old indexers they do.  
+  
+import {  
+  GreetingEntity,  UserEntity,  // ... other entities} from "../generated/src/Types.gen";
+```
+
+**After:**
+
+```codeBlockLines_e6Vv
+import {  
+  Greeter, // the Greeter Contract  // ...  Greeting, // the Greeting Entity  User, // The User Entity  // ... other entities} from "generated"; // Note this requires adding the 'generated' folder to your 'optionalDependencies' in your package.json
+```
+
+---
+### 2\. Update Handler Definitions
+
+**Before:**
+
+```codeBlockLines_e6Vv
+/// or if your indexer is very old: GreeterContract_Event1_loader  
+GreeterContract.Event1.loader(({ event, context }) => {  
+  // Loader code});  
+GreeterContract.Event1.handler(({ event, context }) => {  
+  // Handler code});
+```
+
+**After:**
+
+```codeBlockLines_e6Vv
+Greeter.Event1.handlerWithLoader({  
+  loader: async ({ event, context }) => {    // Loader code    return {      /* loaded data, this data is available in the "handler" via the `loaderReturn` parameter */    };  },  handler: async ({ event, context, loaderReturn }) => {    // Handler code using loaderReturn  },});
+```
+
+---
+#### Or without a loader:
+
+**Before:**
+
+```codeBlockLines_e6Vv
+GreeterContract.Event1.handler(({ event, context }) => {  
+  // Handler code});
+```
+
+**After:**
+
+```codeBlockLines_e6Vv
+Greeter.Event1.handler(async ({ event, context }) => {  
+  // Handler code});
+```
+
+---
+### 3\. Dynamic Contract Registration
+
+Use `contractRegister` for dynamic contract registration. Assuming there is an event called NewGreeterCreated that creates a contract called Greeter that has the address of the `newGreeter` as a field.
+
+**Before:**
+
+```codeBlockLines_e6Vv
+GreeterContract.NewGreeterCreated.loader(({ event, context }) => {  
+  context.contractRegistration.addGreeter(event.params.newGreeter);});
+```
+
+**After:**
+
+```codeBlockLines_e6Vv
+Greeter.NewGreeterCreated.contractRegister(({ event, context }) => {  
+  context.addGreeter(event.params.newGreeter);});
+```
+
+---
+### 4\. Handling Entities
+
+**Before**
+
+```codeBlockLines_e6Vv
+const greetingInstance: GreetingEntity = {  
+  ...currentGreeting,  // ...loaderReturn};  
+context.Greeting.set(greetingInstance);
+```
+
+**After**
+
+```codeBlockLines_e6Vv
+const greetingInstance: Greeting = {  
+  ...currentGreeting,  // ...};  
+context.Greeting.set(greetingInstance);
+```
+
+The only change is in the TypeScript/ReScript type for the entity 💪
+
+---
+### 5\. Accessing Loaded Data
+
+---
+#### Access data via asynchronous get functions:
+
+**Before:**
+
+```codeBlockLines_e6Vv
+let currentEntity = context.Entity.get(event.srcAddress.toString());
+```
+
+**After:**
+
+```codeBlockLines_e6Vv
+let currentEntity = await context.Entity.get(event.srcAddress.toString());
+```
+
+---
+#### Access loaded data through the `loaderReturn` if you are using loaders:
+
+**Before:**
+
+```codeBlockLines_e6Vv
+let currentEntity = context.Entity.get(event.srcAddress.toString());
+```
+
+**After:**
+
+```codeBlockLines_e6Vv
+const { currentEntity } = loaderReturn;
+```
+
+---
+### 6\. Loading Linked Entities
+
+Before:
+
+```codeBlockLines_e6Vv
+GreeterContract.Event1.loader(({ event, context }) => {  
+  context.Entity.load(event.srcAddress.toString(), {    loadField1: true,    loadField2: true,  });});
+```
+
+After:
+
+```codeBlockLines_e6Vv
+Greeter.Event1.handlerWithLoader({  
+  loader: async ({ event, context }) => {    const currentEntity = await context.Entity.get(event.srcAddress.toString());    if (currentEntity == undefined) return null;  
+    const field1Instance = await context.Entity.getField1(      currentEntity.field1_id    );    const field2Instance = await context.Entity.getField2(      currentEntity.field2_id    );  
+    return { currentEntity, field1Instance, field2Instance };  },});
+```
+
+---
+### 7\. Config File Changes
+
+Before:
+
+```codeBlockLines_e6Vv
+contracts:  
+  - name: Greeter    sameRandomFieldThatIsntPartOfSchema: true    handler: src/EventHandlers.ts    events:      - event: Greet(address indexed recipient, string greeting)        isAsync: true        requiredEntities:          - name: User            label: recipient          - name: Greetings            arrayLabels: previousGreetings
+```
+
+After:
+
+```codeBlockLines_e6Vv
+contracts:  
+  - name: Greeter    handler: src/EventHandlers.ts    events:      - event: Greet(address indexed recipient, string greeting)
+```
+
+---
+### 8\. Event Fields
+
+Before (v1):
+
+```codeBlockLines_e6Vv
+GreeterContract.Event1.handler(({ event, context }) => {  
+  console.log("The event timestamp and block number",    event.txOrigin,    event.txTo,    event.transactionHash,    event.transactionIndex,    event.blockNumber,    event.blockTimestamp,    event.blockHash,  )});
+```
+
+After (v2):
+
+```codeBlockLines_e6Vv
+Greeter.Event1.handlerWithLoader(async ({ event, context }) => {  
+  // NOTE: these fields are in the loader and the contractRegister function too  console.log("The event timestamp and block number",    event.transaction.from,    event.transaction.to,    event.transaction.hash,    event.transaction.transactionIndex,    event.block.number,    event.block.timestamp,    event.block.hash,  );});
+```
+
+And in your `config.yaml` file:
+
+```codeBlockLines_e6Vv
+field_selection:  
+  transaction_fields:    - "from"    - "to"    - "hash"    - "transactionIndex"
+```
+
+---
+## Examples
+
+As we upgrade public repos on GitHub, we'll add the commits of the upgrade to this page for reference:
+
+-   [Velodrome Indexer Upgrade Commit](https://github.com/enviodev/velodrome-indexer/commit/f1ddb8bef6d2884e7167784303f03fec5e06576e)
+
+---
+### Additional Tips
+
+-   Make sure to thoroughly test your migrated code to catch any issues that might arise from the asynchronous nature of the new handlers.
+    
+-   If performance isn't a massive concern, you can simply use the `handler` function without a loader.
+    
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/migration-guide-v1-v2.md)
+
+[
+
+Previous
+
+Quickstart
+
+](/docs/HyperIndex/contract-import)[
+
+Next
+
+Supported Networks
+
+](/docs/HyperIndex/supported-networks)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/greeter-tutorial
+Date Scraped: 2024-12-24T15:32:18.694Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Tutorials
+-   Greeter Tutorial
+
+Version: v2
+
+On this page
+
+---
+# Indexing Greeter contract using Envio
+
+This tutorial will take you through a step-by-step guide to indexing a live Greeter smart contract using Envio.
+
+---
+## Background
+
+---
+### [Greeter contract](https://github.com/Float-Capital/hardhat-template)
+
+The Greeter contract is a very simple smart contract that allows a user to write a greeting message on the blockchain.
+
+The Greeter contract is deployed on both the Polygon and the Linea blockchain. Following this tutorial will index events from both chains.
+
+---
+### [Envio](https://envio.dev)
+
+Envio is a framework for developing a backend to index and aggregate blockchain data into a graphQL query-able database.
+
+---
+## Prerequisites
+
+---
+### Environment tooling
+
+1.  [Node.js](https://nodejs.org/en/download/current) we recommend using something like [fnm](https://github.com/Schniz/fnm) or [nvm](https://github.com/nvm-sh/nvm) to install Node
+2.  [pnpm](https://pnpm.io/installation)
+3.  [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+---
+### Install Envio
+
+```codeBlockLines_e6Vv
+npm i -g envio
+```
+
+---
+## Step by step instructions
+
+---
+### Initialize the project
+
+Initialize the project using the Greeter template.
+
+Run
+
+```codeBlockLines_e6Vv
+envio init
+```
+
+Choose the directory where you would like to set up your project (default is the current directory)
+
+```codeBlockLines_e6Vv
+? Set the directory:  (.) .
+```
+
+Then choose a language of your choice for the event handlers.
+
+```codeBlockLines_e6Vv
+? Which language would you like to use?  
+> JavaScript  
+  TypeScript  ReScript[↑↓ to move, enter to select, type to filter]
+```
+
+Select to start from a template
+
+```codeBlockLines_e6Vv
+? Choose an initialization option  
+> Template  
+  Contract Import  Subgraph Migration (Experimental)[↑↓ to move, enter to select, type to filter]
+```
+
+Choose `Greeter` when prompted to choose a template.
+
+```codeBlockLines_e6Vv
+? Which template would you like to use?  
+> Greeter  
+  Erc20[↑↓ to move, enter to select, type to filter]
+```
+
+---
+### Start the indexer
+
+> Dev note: 📢 make sure you have docker open
+
+The following commands will start the docker and create databases for indexed data, make sure to re-run `dev` if you make changes to the files
+
+Run
+
+```codeBlockLines_e6Vv
+envio dev
+```
+
+The indexer will then start indexing the contract's specified in the `config.yaml` file from the `start_block` specified for each network.
+
+---
+### Write to the contracts on Polygon and Linea using the block explorers
+
+Once the indexer is running, you can call functions on the Greeter contract that is deployed on Polygon and Linea, using the respective network's blockchain explorer.
+
+For Polygon, navigate to the contract on and the call `setGreeting` function.
+
+For Linea, navigate to the contract on and call the `setGreeting` function.
+
+In the case of a multi-chain indexing example, you can call the `setGreeting` function on _both_ contracts.
+
+---
+### View the indexed results
+
+You can view the indexed results on a local Hasura server.
+
+```codeBlockLines_e6Vv
+open http://localhost:8080
+```
+
+The Hasura admin-secret / password is `testing` and the tables can be viewed in the `data` tab or queried from the playground
+
+---
+### Deploy the indexer onto the hosted service
+
+Once you have verified that the indexer is working for the Greeter contracts, then you are ready to deploy the indexer onto our hosted service.
+
+Deploying an indexer onto the hosted service allows you to extract information via graphQL queries into your front-end or some back-end application.
+
+Navigate to the [hosted service](https://envio.dev/app/login) to start deploying your indexer and refer to this [documentation](/docs/HyperIndex/hosted-service) for more information on deploying your indexer.
+
+---
+### What next?
+
+Once you have successfully finished the Greeter tutorial, you are ready to become a blockchain indexing wizard!
+
+Jump into the [Importing Contracts](/docs/HyperIndex/contract-import) page to generate a basic indexing template for a contract that is deployed on the blockchain!
+
+You can also start to modify the handlers to your own custom indexing logic.
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Tutorials/greeter-tutorial.md)
+
+[
+
+Previous
+
+Indexing Fuel Network
+
+](/docs/HyperIndex/tutorial-indexing-fuel)[
+
+Next
+
+Price data
+
+](/docs/HyperIndex/price-data)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/hosted-service
+Date Scraped: 2024-12-24T15:32:19.898Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Hosted Service
+-   Overview
+
+Version: v2
+
+---
+# Overview
+
+Envio's hosted service is the easiest way to deploy and host your indexer. We provide the entire infrastructure for hosting and users are just required to `git push` the latest versions of their codebase to GitHub in order to make a deployment.
+
+You can view hosted indexers in the [Explorer](https://envio.dev/explorer).
+
+info
+
+🧰 You can easily self host your indexer on a machine. Check the [cli commands doc](/docs/HyperIndex/cli-commands) to read the full list of controls.
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Hosted_Service/hosted-service.md)
+
+[
+
+Previous
+
+Cross-Chain Messaging
+
+](/docs/HyperIndex/example-cross-chain-messaging)[
+
+Next
+
+Deploying
+
+](/docs/HyperIndex/hosted-service-deployment)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/tutorial-indexing-fuel
+Date Scraped: 2024-12-24T15:32:20.202Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Tutorials
+-   Indexing Fuel Network
+
+Version: v2
+
+On this page
+
+---
+# Indexing Sway Farm on the Fuel Network
+
+Until recently, HyperIndex was only available on EVM-compatible blockchains, and now we have extended support to the [Fuel](https://fuel.network/) Network.
+
+Indexers are vital to the success of any dApp. In this tutorial, we will create an Envio indexer for the Fuel dApp [Sway Farm](https://swayfarm.xyz/) step by step.
+
+Sway Farm is a simple farming game and for the sake of a real-world example, let's create the indexer for a leaderboard of all farmers 🧑‍🌾
+
+![Sway Farm](/docs-assets/tutorial-indexing-fuel-farm.webp)
+
+---
+## About Fuel
+
+[Fuel](https://fuel.network/) is an operating system purpose-built for Ethereum rollups. Fuel's unique architecture allows rollups to solve for PSI (parallelization, state minimized execution, interoperability). Powered by the FuelVM, Fuel aims to expand Ethereum's capability set without compromising security or decentralization.
+
+[Website](https://fuel.network/) | [X](https://twitter.com/fuel_network?lang=en) | [Discord](https://discord.com/invite/xfpK4Pe)
+
+---
+## Prerequisites
+
+---
+### Environment tooling
+
+1.  [Node.js](https://nodejs.org/en/download/current) we recommend using something like [fnm](https://github.com/Schniz/fnm) or [nvm](https://github.com/nvm-sh/nvm) to install Node
+2.  [pnpm](https://pnpm.io/installation)
+3.  [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+---
+## Initialize the project
+
+Now that you have installed the prerequisite packages let's begin the practical steps of setting up the indexer.
+
+Open your terminal in an empty directory and initialize a new indexer by running the command:
+
+```codeBlockLines_e6Vv
+npx envio init
+```
+
+In the following prompt, choose the directory where you want to set up your project. The default is the current directory, but in the tutorial, I'll use the indexer name:
+
+```codeBlockLines_e6Vv
+? Specify a folder name (ENTER to skip): sway-farm-indexer
+```
+
+Then, choose a language of your choice for the event handlers. TypeScript is the most popular one, so we'll stick with it:
+
+```codeBlockLines_e6Vv
+? Which language would you like to use?  
+  JavaScript> TypeScript  
+  ReScript[↑↓ to move, enter to select, type to filter]
+```
+
+Next, we have the new prompt for a blockchain ecosystem. Previously Envio supported only EVM, but now it's possible to choose between `Evm`, `Fuel` and other VMs in the future:
+
+```codeBlockLines_e6Vv
+? Choose blockchain ecosystem  
+  Evm> Fuel  
+[↑↓ to move, enter to select, type to filter]
+```
+
+In the following prompt, you can choose an initialization option. There's a Greeter template for Fuel, which is an excellent way to learn more about HyperIndex. But since we have an existing contract, the `Contract Import` option is the best way to create an indexer:
+
+```codeBlockLines_e6Vv
+? Choose an initialization option  
+  Template> Contract Import  
+[↑↓ to move, enter to select, type to filter]
+```
+
+> A separate [Tutorial](/docs/HyperIndex/greeter-tutorial) page provides more details about the `Greeter` template.
+
+Next it'll ask us for an ABI file. You can find it in the `./out/debug` directory after building your [Sway](https://docs.fuel.network/docs/sway/) contract with `forc build`:
+
+```codeBlockLines_e6Vv
+? What is the path to your json abi file? ./sway-farm/contract/out/debug/contract-abi.json
+```
+
+After the ABI file is provided, Envio parses all possible events you can use for indexing:
+
+```codeBlockLines_e6Vv
+? Which events would you like to index?  
+> [x] NewPlayer  
+  [x] PlantSeed  [x] SellItem  [x] InvalidError  [x] Harvest  [x] BuySeeds  [x] LevelUp[↑↓ to move, space to select one, → to all, ← to none, type to filter]
+```
+
+Let's select the events we want to index. I opened the code of the and realized that for a leaderboard we need only events which update player information. Hence, I left only `NewPlayer`, `LevelUp`, and `SellItem` selected in the list. We'd want to index more events in real life, but this is enough for the tutorial.
+
+```codeBlockLines_e6Vv
+? Which events would you like to index?  
+> [x] NewPlayer  
+  [ ] PlantSeed  [x] SellItem  [ ] InvalidError  [ ] Harvest  [ ] BuySeeds  [x] LevelUp[↑↓ to move, space to select one, → to all, ← to none, type to filter]
+```
+
+> 📖 For the tutorial we only need to index `LOG_DATA` receipts, but you can also index `Mint`, `Burn`, `Transfer` and `Call` receipts. Read more about .
+
+Just a few simple questions left. Let's call our contract `SwayFarm`:
+
+```codeBlockLines_e6Vv
+? What is the name of this contract? SwayFarm
+```
+
+Set an address for the deployed contract:
+
+```codeBlockLines_e6Vv
+? What is the address of the contract? 0xf5b08689ada97df7fd2fbd67bee7dea6d219f117c1dc9345245da16fe4e99111  
+[Use the proxy address if your abi is a proxy implementation]
+```
+
+Finish the initialization process:
+
+```codeBlockLines_e6Vv
+? Would you like to add another contract?  
+> I'm finished  
+  Add a new address for same contract on same network  Add a new contract (with a different ABI)[Current contract: SwayFarm, on network: Fuel]
+```
+
+If you see the following line, it means we are already halfway through 🙌
+
+```codeBlockLines_e6Vv
+Please run `cd sway-farm-indexer` to run the rest of the envio commands
+```
+
+Let's open the indexer in an IDE and start adjusting it for our farm 🍅
+
+---
+## Walk through initialized indexer
+
+At this point, we should already have a working indexer. You can start it by running `pnpm dev`, which we cover in more detail later in the tutorial.
+
+Everything is configured by modifying the 3 files below. Let's walk through each of them.
+
+-   config.yaml [`Guide`](/docs/HyperIndex/configuration-file)
+-   schema.graphql [`Guide`](/docs/HyperIndex/schema)
+-   EventHandlers.\* [`Guide`](/docs/HyperIndex/event-handlers)
+
+> (\* depending on the language chosen for the indexer)
+
+---
+### `config.yaml`
+
+The `config.yaml` outlines the specifications for the indexer, including details such as network and contract specifications and the event information to be used in the indexing process.
+
+```codeBlockLines_e6Vv
+name: sway-farm-indexer  
+ecosystem: fuel  
+networks:  
+  - id: 0    start_block: 0    contracts:      - name: SwayFarm        address:          - 0xf5b08689ada97df7fd2fbd67bee7dea6d219f117c1dc9345245da16fe4e99111        abi_file_path: abis/swayfarm-abi.json        handler: src/EventHandlers.ts        events:          - name: SellItem            logId: "11192939610819626128"          - name: LevelUp            logId: "9956391856148830557"          - name: NewPlayer            logId: "169340015036328252"
+```
+
+In the tutorial, we don't need to adjust it in any way. But later you can modify the file and add more events for indexing.
+
+As a nice to have, you can use a [Sway](https://docs.fuel.network/docs/sway/) struct name without specifying a `logId`, like this:
+
+```codeBlockLines_e6Vv
+- name: SellItem  
+- name: LevelUp  
+- name: NewPlayer
+```
+
+---
+### `schema.graphql`
+
+The `schema.graphql` file serves as a representation of your application's data model. It defines entity types that directly correspond to database tables, and the event handlers you create are responsible for creating and updating records within those tables. Additionally, the GraphQL API is automatically generated based on the entity types specified in the `schema.graphql` file, to allow access to the indexed data.
+
+> 🧠 A separate [Guide](/docs/HyperIndex/schema) page provides more details about the `schema.graphql` file.
+
+For the leaderboard, we need only one entity representing the player. Let's create it:
+
+```codeBlockLines_e6Vv
+type Player {  
+  id: ID!  farmingSkill: BigInt!  totalValueSold: BigInt!}
+```
+
+We will use the user address as an ID. The fields `farmingSkill` and `totalValueSold` are `u64` in Sway, so to safely map them to JavaScript value, we'll use `BigInt`.
+
+---
+### `EventHandlers.ts`
+
+The event handlers generated by contract import are quite simple and only add an entity to a DB when a related event is indexed.
+
+```codeBlockLines_e6Vv
+/*  
+ * Please refer to https://docs.envio.dev for a thorough guide on all Envio indexer features */import { SwayFarmContract, SwayFarm_SellItemEntity } from "generated";  
+  
+SwayFarmContract.SellItem.handler(async ({ event, context }) => {  
+  const entity: SwayFarm_SellItemEntity = {    id: `${event.chainId}_${event.block.height}_${event.logIndex}`,  };  
+  context.SwayFarm_SellItem.set(entity);});
+```
+
+Let's modify the handlers to update the `Player` entity instead. But before we start, we need to run `pnpm codegen` to generate utility code and types for the `Player` entity we've added.
+
+```codeBlockLines_e6Vv
+pnpm codegen
+```
+
+It's time for a little bit of coding. The indexer is very simple; it requires us only to pass event data to an entity.
+
+```codeBlockLines_e6Vv
+import { SwayFarmContract } from "generated";  
+  
+/**  
+Registers a handler that processes NewPlayer event  
+on the SwayFarm contract and stores the players in the DB  
+*/  
+SwayFarmContract.NewPlayer.handler(async ({ event, context }) => {  
+  // Set the Player entity in the DB with the intial values  context.Player.set({    // The address in Sway is a union type of user Address and ContractID. Envio supports most of the Sway types, and the address value was decoded as a discriminated union 100% typesafe    id: event.params.address.payload.bits,    // Initial values taken from the contract logic    farmingSkill: 1n,    totalValueSold: 0n,  });});  
+  
+SwayFarmContract.LevelUp.handler(async ({ event, context }) => {  
+  const playerInfo = event.params.player_info;  context.Player.set({    id: event.params.address.payload.bits,    farmingSkill: playerInfo.farming_skill,    totalValueSold: playerInfo.total_value_sold,  });});  
+  
+SwayFarmContract.SellItem.handler(async ({ event, context }) => {  
+  const playerInfo = event.params.player_info;  context.Player.set({    id: event.params.address.payload.bits,    farmingSkill: playerInfo.farming_skill,    totalValueSold: playerInfo.total_value_sold,  });});
+```
+
+Without overengineering, simply set the player data into the database. What's nice is that whenever your ABI or entities in `graphql.schema` change, Envio regenerates types and shows the compilation error.
+
+> 🧠 You can find the indexer repo created during the tutorial on [GitHub](https://github.com/enviodev/sway-farm-indexer).
+
+---
+## Starting the Indexer
+
+> 📢 Make sure you have docker open
+
+The following commands will start the docker and create databases for indexed data. Make sure to re-run `pnpm dev` if you've made some changes.
+
+```codeBlockLines_e6Vv
+pnpm dev
+```
+
+![Running indexer](/docs-assets/tutorial-indexing-fuel-running-indexer.webp)
+
+Nice, we indexed `1,721,352` blocks containing `58,784` events in 10 seconds, and they continue coming in.
+
+---
+## View the indexed results
+
+Let's check indexed players on the local Hasura server.
+
+```codeBlockLines_e6Vv
+open http://localhost:8080
+```
+
+The Hasura admin-secret / password is `testing`, and the tables can be viewed in the data tab or queried from the playground.
+
+![GraphiQL example](/docs-assets/tutorial-indexing-fuel-graphiql.webp)
+
+Now, we can easily get the top 5 players, the number of inactive and active players, and the average sold value. What's left is a nice UI for the Sway Farm leaderboard, but that's not the tutorial's topic.
+
+> 🧠 A separate [Guide](/docs/HyperIndex/navigating-hasura) page provides more details about navigating Hasura.
+
+---
+## Deploy the indexer onto the hosted service
+
+Once you have verified that the indexer is working for your contracts, then you are ready to deploy the indexer onto our hosted service.
+
+Deploying an indexer onto the hosted service allows you to extract information via graphQL queries into your front-end or some back-end application.
+
+Navigate to the [hosted service](https://envio.dev/app/login) to start deploying your indexer and refer to this [documentation](/docs/HyperIndex/hosted-service) for more information on deploying your indexer.
+
+---
+## What next?
+
+Once you have successfully finished the tutorial, you are ready to become a blockchain indexing wizard!
+
+Join our [Discord](https://discord.com/invite/gt7yEUZKeB) channel to make sure you catch all new releases.
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Tutorials/tutorial-indexing-fuel.md)
+
+[
+
+Previous
+
+Indexing ERC20 Token Transfers on Base
+
+](/docs/HyperIndex/tutorial-erc20-token-transfers)[
+
+Next
+
+Greeter Tutorial
+
+](/docs/HyperIndex/greeter-tutorial)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/price-data
+Date Scraped: 2024-12-24T15:32:20.473Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Tutorials
+-   Price data
+
+Version: v2
+
+On this page
+
+---
+# Getting price data in your indexer
+
+TLDR, the code for this guide can be found [here](https://github.com/enviodev/price-data)
+
+There are many applications where you may want to get price data in your indexer. For example, you may want to use price data to calculate the value of historical token transfers or the TVL of a Uniswap pool over time. In this example, we want to get the USD value of ETH deposits into a Uniswap V3 liquidity pool. To do these things, we need to get the price of ETH in USD at the time of the event. However, the relevant events to be indexed may not contain the price data required. In these cases, we have 3 different ways to get price data inside the indexer:
+
+1.  Oracles
+2.  Dex pools
+3.  Offchain API
+
+Each of these methods has its own pros and cons and we will analyze each through the metrics of accuracy, centralization, and data availability. We will also go through each of these methods and explain how to use them in a simple indexer. We will be using the [Blast](https://blastscan.io/) blockchain however the same principles apply to any other EVM blockchain.
+
+---
+## Oracles
+
+Oracles are a type of service that provide offchain data to the blockchain. This is usually price data but has no limitations and can be anything from odds for a sports betting dApp to random numbers which can be used for a lottery. One such oracle service which we will use here is [API3](https://api3.org/) which currently only focuses on price feeds.
+
+To find the relevant ETH/USD price update events using API3:
+
+-   The events we care about are emitted on the Api3ServerV1 contract at on Blast, which you can find in the [@api3/contracts npm package](https://www.npmjs.com/package/@api3/contracts). The events are emitted with data feed IDs and not dAPI names, so we need to look up what data feed ID the particular dAPI name is set to. [dAPI](https://blog.benligiray.com/post/2022-31-05-dapis-apis-for-dapps/) just refers to API3's price data feeds.
+
+1.  `"ETH/USD"` (the dAPI name) as a `bytes32` string is `0x4554482f55534400000000000000000000000000000000000000000000000000`
+2.  Using the conversion function, we see the dAPI is set to a data feed ID with `0x3efb3990846102448c3ee2e47d22f1e5433cd45fa56901abe7ab3ffa054f70b5`
+3.  Searching using ctrl-f `0x3efb3990846102448c3ee2e47d22f1e5433cd45fa56901abe7ab3ffa054f70b5` in the , we see some `UpdatedBeaconSetWithBeacons` events with our ETH/USD data feed, which is what we're looking for. Note that the prices are stored as `int224` values. More on that later.
+
+Don't worry about the above steps too much as each oracle service will have it's own contracts and events. Just read their documentation or reach out for help on their Discord and you should be able to find the relevant information.
+
+---
+### Oracle considerations
+
+-   **Accuracy**: Due to gas prices, oracles don't push onchain price updates constantly. Instead, as with the API3 contract we are indexing, the oracle normally only pushes onchain updates at certain price deviations, e.g. 1% or 5%. This means that the latest price pushed from the oracle will not always be totally accurate, although it should be close.
+-   **Centralization**: This will vary from oracle to oracle. API3 runs price feeds from their own API's which means they have a higher degree of centralization. However, this allows them to provide a higher level of security and trustworthiness. Chainlink lets anyone run their own node and provide their own price feeds, which means they are more decentralized. There are some trustworthiness concerns associated with this decentralization but they have reputation and punishment mechanisms as a mitigation.
+-   **Data availability**: For security reasons, oracles often choose to limit the price feeds they support to pairs with high liquidity, volume, and trustworthiness. This means that you may not be able to get price data for all tokens, especially newer, low marketcap tokens.
+
+In terms using oracle price feeds in your indexer, you will have to rely on the latest price pushed onchain, which may not be accurate to a certain deviation. However, this is very fast as you can get the price data directly from the event without any API calls. Use this if speed of indexing is more important than accuracy.
+
+---
+## Dex pools
+
+Dex pools are a type of smart contract that allow users to swap tokens with each other. Uniswap is the most popular dex and operates on many blockchains, including Blast. The main stable coin on Blast is USDB at [0x4300000000000000000000000000000000000003](https://blastscan.io/address/0x4300000000000000000000000000000000000003) while WETH is at [0x4300000000000000000000000000000000000004](https://blastscan.io/address/0x4300000000000000000000000000000000000003). To get the Uniswap pool address programmically, we can use the following script:
+
+> src/getUniswapPool.ts
+
+info
+
+You can also manually use the `getPool` function on to arrive at the same result. Also, we only care about the `getPool` function on the factory contract, so we leave all other functions out of the ABI.
+
+```codeBlockLines_e6Vv
+import { createPublicClient, http, parseAbi, getContract } from 'viem';  
+import { blast } from 'viem/chains';  
+  
+const usdb = '0x4300000000000000000000000000000000000003';  
+const weth = '0x4300000000000000000000000000000000000004';  
+const factoryAddress = '0x792edAdE80af5fC680d96a2eD80A44247D2Cf6Fd';  
+const factoryAbi = parseAbi(["function getPool( address tokenA, address tokenB, uint24 fee ) external view returns (address pool)"]);  
+  
+const providerUrl = 'https://rpc.ankr.com/blast'; const poolBips = 3000;  // 0.3%. This is measured in hundredths of a bip  
+  
+const client = createPublicClient({  
+    chain: blast,    transport: http(providerUrl),});  
+  
+const factoryContract = getContract({  
+    abi: factoryAbi,    address: factoryAddress,    client: client,});  
+  
+(async () => {  
+    const poolAddress = await factoryContract.read.getPool([usdb, weth, poolBips]);    console.log(poolAddress);})();
+```
+
+The resulting pool address for USDB/WETH is [0xf52B4b69123CbcF07798AE8265642793b2E8990C](https://blastscan.io/address/0xf52B4b69123CbcF07798AE8265642793b2E8990C). You can use this address to get the price data from the dex pool. The relevant event for Uniswap v3 pools is the `Swap` event which contains the price data in the `sqrtPriceX96` field. To convert this to a price, there is a simple calculation that needs to be made which you can see in the section.
+
+---
+### DEX pool considerations
+
+-   **Accuracy**: Dex pools rely on arbitraguers to keep prices in line with the market. For high liquidity pools, this is usually not a problem and the price can be taken to be reliable, with rare exception. However, for low liquidity pools, the price can change drastically with a single trade and the incentive for arbitraguers to keep the price in line is lower, which can lead to price manipulation. This means that the price you get from a dex pool may not be the same as the price you would get on a centralized exchange.
+-   **Centralization**: The price you get from a dex pool cannot be controlled by any single entity and is therefore more decentralized than an oracle. However, price manipulation is a risk as aforementioned.
+-   **Data availability**: Popular dexs have a lot of tokens listed and by using the dex pool events you can get the price feeds for most, if not all tokens listed on the dex. However, not all tokens will be in a pool with a stable coin. For example, on Ethereum, many newer tokens are only paired with ETH. In this case, you would have to follow a two step process to get the price of the token in USD: First, get the price of the token in ETH and then get the price of ETH in a stablecoin. Also note that stablecoins are not totally 1:1 with the US dollar and do occasionally deviate from their peg although this is rare and can be ignored in most cases, especially with trusted stablecoins like USDC, USDT, and DAI.
+
+As with oracles, using dex pool price data in your indexer will be very fast as you can get the price data directly from the event without any API calls. However, you will have to rely on the value of the latest swap which may not be totally accurate, especially for low volume pools. Use this if speed of indexing is more important than accuracy.
+
+Choosing between dex pools and oracles will depend on the specific use case of your indexer; dex pools will typically have more swap events than oracles will push price updates, so they may be more up to date but are susceptible to price impact and manipulation.
+
+---
+## Offchain API
+
+Offchain APIs, are often a reliable way to get price data. One such API is [CoinGecko](https://www.coingecko.com/en/api). CoinGecko provides price data for the majority of tokens on the blockchain with real volume. However there are several downsides as API calls are very slow and getting historical prices that are accurate to the block from an API will typically require a [paid subscription](https://docs.noves.fi/reference/get_evm-chain-price-tokenaddress). [Coingecko's free tier API](https://docs.coingecko.com/v3.0.1/reference/coins-id-history) allows us to get the historical price, although it can only return the token price at the start of that day i.e. 00:00:00 UTC. As we don't have a paid subscription to get historical prices accurate to the block, we will use CoinGecko's free API to give us a rough estimate of the price of ETH in USD at a certain block. We don't expect this to be completely accurate and include it for demonstration purposes only.
+
+> src/request.ts
+
+info
+
+If you are following along with the demo, get your own CoinGecko API key [here](https://www.coingecko.com/en/developers/dashboard) and set it as an environment variable.
+
+```codeBlockLines_e6Vv
+const COIN_GECKO_API_KEY = process.env.COIN_GECKO_API_KEY;  
+  
+async function fetchEthPriceFromUnix(unix: number, token = "ethereum"): Promise<number> {  
+    // convert unix to date dd-mm-yyyy    const _date = new Date(unix * 1000);    const date = _date.toISOString().slice(0, 10).split("-").reverse().join("-");    return fetchEthPrice(date.slice(0, 10), token);}  
+  
+async function fetchEthPrice(date: string, token = "ethereum"): Promise<number> {  
+    const options = {        method: 'GET',        headers: { accept: 'application/json', 'x-cg-demo-api-key': COIN_GECKO_API_KEY }    };  
+    return fetch(`https://api.coingecko.com/api/v3/coins/${token}/history?date=${date}&localization=false`, options as any)        .then(res => res.json())        .then((res: any) => {            const usdPrice = res.market_data.current_price.usd;            console.log(`ETH price on ${date}: ${usdPrice}`);            return usdPrice;        })        .catch(err => console.error(err));}  
+  
+export default fetchEthPriceFromUnix;
+```
+
+---
+### Offchain API considerations
+
+-   **Accuracy**: If using an endpoint that is accurate to the block, such as the [Noves Pricing API](https://docs.noves.fi/reference/get_evm-chain-price-tokenaddress), then this is definitely the most accurate and reliable way to get price data in your indexer. This is because most offchain API pricing services, aggregate price data from many different sources so that price feed manipulation is highly unlikely. The only real risk you run is if the API goes down or suffers internal manipulation, which is likely rare for reputable APIs.
+-   **Centralization**: Offchain APIs are typically controlled by a single entity meaning they are very centralized. This means that you have to trust the API to provide accurate and reliable price data. However, as mentioned, reputable APIs are very unlikely to manipulate price data and as such this is not a real concern for most users.
+-   **Data availability**: Offchain APIs such as CoinGecko provide price feeds for the majority of tokens on the blockchain with real volume. However, they may not have price data for newer, low marketcap tokens. In that case, you may have to rely on dex pools or oracles to get price data. Note that offchain APIs require an api call every time you need price data which will **significantly** slow down your indexer. API calls will change your indexer from a fast, event-based indexer to a slow, call-based indexer that may take hours to run.
+
+Due to the slow nature of API calls and the fact that you may need a paid subscription, only use this method if accuracy is of the utmost importance. And if using this method in production, cache your call results to speed up your indexer for future runs.
+
+---
+## Event handler
+
+We follow this process for all the `Mint` events in the [USDB/WETH pool](https://blastscan.io/address/0xf52B4b69123CbcF07798AE8265642793b2E8990C) on Uniswap V3:
+
+1.  Use each of the three methods in turn to get the USD price of 1 ETH
+2.  For each of these three prices, calculate the total dollar value of ETH deposited into the pool by _eth\_price \* eth\_deposited = usd\_deposited_
+3.  Compare the deposited dollar values to see which method is most accurate.
+
+Mint events refer to events where a user deposits tokens into a DEX pool.
+
+`npx envio init`
+
+-   For our oracle information, [0x709944a48cAf83535e43471680fDA4905FB3920a](https://blastscan.io/address/0x709944a48cAf83535e43471680fDA4905FB3920a) contract and the `UpdatedBeaconSetWithBeacons` event.
+-   For our dex pool and mint information, [0xf52B4b69123CbcF07798AE8265642793b2E8990C](https://blastscan.io/address/0xf52B4b69123CbcF07798AE8265642793b2E8990C) contract and the `Swap` and `Mint` event.
+
+> config.yaml
+
+info
+
+The `field_selection` section has to be manually added if you want to include the transaction hash in the output. This is not included by default. We also start the indexer at block 11000000 to keep the running time short. You can change this to whichever block you want to start at.
+
+```codeBlockLines_e6Vv
+
+---
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json  
+name: envio-indexer  
+networks:  
+- id: 81457  
+  start_block: 11000000  contracts:  - name: Api3ServerV1    address:    - 0x709944a48cAf83535e43471680fDA4905FB3920a    handler: src/EventHandlers.ts    events:    - event: UpdatedBeaconSetWithBeacons(bytes32 indexed beaconSetId, int224 value, uint32 timestamp)  - name: UniswapV3Pool    address:    - 0xf52B4b69123CbcF07798AE8265642793b2E8990C    handler: src/EventHandlers.ts    events:    - event: Swap(address indexed sender, address indexed recipient, int256 amount0, int256 amount1, uint160 sqrtPriceX96, uint128 liquidity, int24 tick)    - event: Mint(address sender, address indexed owner, int24 indexed tickLower, int24 indexed tickUpper, uint128 amount, uint256 amount0, uint256 amount1)rollback_on_reorg: false  
+field_selection:  
+  transaction_fields:    - "hash"
+```
+
+> schema.graphql
+
+info
+
+We have simiflied the default schema to only include the relevant values. The main point of focus is the `EthDeposited` type. For all 3 methods, it includes the both the ETH price and the USD value of the ETH deposited. `offchainOracleDiff` is the percentage difference between oracle and offchain ETH price. We also include the transaction hash to cross check the values on Blastscan.
+
+```codeBlockLines_e6Vv
+type OraclePoolPrice {  
+  id: ID!  value: BigInt!  timestamp: BigInt!  block: Int!}  
+  
+type UniswapV3PoolPrice {  
+  id: ID!  sqrtPriceX96: BigInt!  timestamp: Int!  block: Int!}  
+  
+type EthDeposited {  
+  id: ID!  timestamp: Int!  block: Int!  oraclePrice: Float!  poolPrice: Float!  offChainPrice: Float!  offchainOracleDiff: Float!  depositedPool: Float!  depositedOffchain: Float!  depositedOrcale: Float!  txHash: String!}
+```
+
+> src/EventHandlers.ts
+
+```codeBlockLines_e6Vv
+import {  
+  Api3ServerV1,  OraclePoolPrice,  UniswapV3Pool,  UniswapV3PoolPrice,  EthDeposited,} from "generated";  
+import fetchEthPriceFromUnix from "./request";  
+  
+let latestOraclePrice = 0;  
+let latestPoolPrice = 0;  
+  
+Api3ServerV1.UpdatedBeaconSetWithBeacons.handler(async ({ event, context }) => {  
+  // Filter out the beacon set for the ETH/USD price  if (event.params.beaconSetId != '0x3efb3990846102448c3ee2e47d22f1e5433cd45fa56901abe7ab3ffa054f70b5') {    return  }  
+  const entity: OraclePoolPrice = {    id: `${event.chainId}-${event.block.number}-${event.logIndex}`,    value: event.params.value,    timestamp: event.params.timestamp,    block: event.block.number,  };  
+  latestOraclePrice = Number(event.params.value) / Number(10 ** 18);  
+  context.OraclePoolPrice.set(entity);});  
+  
+UniswapV3Pool.Swap.handler(async ({ event, context }) => {  
+  const entity: UniswapV3PoolPrice = {    id: `${event.chainId}-${event.block.number}-${event.logIndex}`,    sqrtPriceX96: event.params.sqrtPriceX96,    timestamp: event.block.timestamp,    block: event.block.number,  };  
+  latestPoolPrice = Number(BigInt(2 ** 192) / (BigInt(event.params.sqrtPriceX96) * BigInt(event.params.sqrtPriceX96)));  
+  context.UniswapV3PoolPrice.set(entity);});  
+  
+UniswapV3Pool.Mint.handler(async ({ event, context }) => {  
+  
+  const offChainPrice = await fetchEthPriceFromUnix(event.block.timestamp);  
+  const ethDepositedUsdPool = (latestPoolPrice * Number(event.params.amount1)) / (10 ** 18);  const ethDepositedUsdOffchain = (offChainPrice * Number(event.params.amount1)) / (10 ** 18);  const ethDepositedUsdOrcale = (latestOraclePrice * Number(event.params.amount1)) / (10 ** 18);  
+  const EthDeposited: EthDeposited = {    id: `${event.chainId}-${event.block.number}-${event.logIndex}`,    timestamp: event.block.timestamp,    block: event.block.number,    oraclePrice: round(latestOraclePrice),    poolPrice: round(latestPoolPrice),    offChainPrice: round(offChainPrice),    depositedPool: round(ethDepositedUsdPool),    depositedOffchain: round(ethDepositedUsdOffchain),    depositedOrcale: round(ethDepositedUsdOrcale),    offchainOracleDiff: round(((ethDepositedUsdOffchain - ethDepositedUsdOrcale)/ethDepositedUsdOffchain)*100),    txHash: event.transaction.hash,  }  
+  context.EthDeposited.set(EthDeposited);});  
+  
+  
+function round(value: number) {  
+  return Math.round(value * 100) / 100;}
+```
+
+---
+## Analysis
+
+Using the image below for reference, we initially compare only the `oraclePrice` and the `poolPrice` as the `offChainPrice` is only accurate to the day as explained in the section. Using the `offchainOracleDiff` column, it is evident that the oracle and pool prices are typically close to each other, although they do deviate up to as much as _17.98%_.
+
+The table also includes transaction hashes (not seen in the image) to cross check the USD values of ETH on [Blastscan](https://blastscan.io/). For example, [this transaction](https://blastscan.io/tx/0xe7e79ddf29ed2f0ea8cb5bb4ffdab1ea23d0a3a0a57cacfa875f0d15768ba37d), seen as the highlighted row in the image below, shows an ETH value on Blastscan of _$2,358.27_ deposited, which we can assume to be correct. Our ETH value using the dex pool, `depositedPool`, shows _$2,117.07_, highlighting that the dex price does not yield completely accurate results, but only an approximation. The value using offchain data, `depositedOffchain`, is _$2,156.15_, slightly closer to the actual value but still not really accurate.
+
+In conclusion, use an offchain API accurate to the block if you need the most accurate price data, otherwise be willing to use oracle or dex pool events and accept a certain deviation from the true value. If using a dex pool, it is highly recommended to use a dex pool with a high volume and liquidity to get the most accurate price data. In our case, the Uniswap pool on Blast has a TVL of less than $20k at the time of writing, so price impact and low volume lead to results that could only provide rough estimates. The equivalent pool on Ethereum currently has a TVL of $160M, which we should have used instead, since Envio easily supports multichain. If using an oracle, make sure to check the deviation of the price updates to make sure they are accurate enough for your use case.
+
+If you really want to increase price data accuracy while still avoiding the slowness of offchain API calls, use multiple dex pools or oracles and then aggregate the data. This should still be much faster than using an offchain API and will provide more accurate results than using a single dex pool or oracle. Also note that oracles might have multiple events for the same pair as they often have separate contracts or functions to allow users to manually update the price feed.
+
+![Table of indexer results](/assets/images/image-6c1e35503e3d7c97eb008482bf735877.png)
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Tutorials/price-data.md)
+
+[
+
+Previous
+
+Greeter Tutorial
+
+](/docs/HyperIndex/greeter-tutorial)[
+
+Next
+
+UniswapV3 (DEX)
+
+](/docs/HyperIndex/example-uniswap-v3-multi-chain-indexer)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/tutorial-erc20-token-transfers
+Date Scraped: 2024-12-24T15:32:20.949Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Tutorials
+-   Indexing ERC20 Token Transfers on Base
+
+Version: v2
+
+On this page
+
+---
+# Indexing ERC20 Token Transfers on Base
+
+In this tutorial, we'll walk you through the process of quickly and efficiently indexing ERC20 token transfers on the Base network using Envio HyperIndex and no-code [contract import](https://docs.envio.dev/docs/HyperIndex/contract-import) feature, providing real-time insights into metrics such as the largest USDC transfers.
+
+The goal is to create an indexer that tracks and analyzes all USDC token transfers on Base by extracting the `Transfer (index_topic_1 address from, index_topic_2 address to, uint256 value)` logs emitted by the USDC contract.
+
+---
+## Prerequisites
+
+Before we start indexing, you'll need to make sure you have the [prerequisites](https://docs.envio.dev/docs/getting-started) installed.
+
+---
+## Initializing an Indexer
+
+Now that you’re all set up and have installed the prerequisite packages required, let’s jump into the practical steps of initializing the indexer and generating a boilerplate index to index the largest USDC token transfers on Base.
+
+1.  Open your terminal in an empty repository and run the command ‘**envio init.**’
+
+![tutorial-base-erc20-transfer-1](/docs-assets/tutorial-base-erc20-transfer-1.png)
+
+2.  Name your indexer anything you’d like (e.g., “**usdc-base-transfer-indexer”**).
+
+![tutorial-base-erc20-transfer-2](/docs-assets/tutorial-base-erc20-transfer-2.png)
+
+3.  Choose your preferred language (e.g., TypeScript) and select “contract import.”
+
+![tutorial-base-erc20-transfer-3](/docs-assets/tutorial-base-erc20-transfer-3.png)
+
+> Note: Indexers on Envio can be written in JavaScript, TypeScript, or ReScript.
+
+4.  Select `Block Explorer` then navigate to `Base`, and head over to [Basescan](https://basescan.org/), copy and paste the existing contract address, and choose the events you’d like to index. In this example, we’ll be indexing the `Transfer` event.
+
+To select an event navigate using the arrow keys (↑ ↓) and click the space bar once you have made your choice.
+
+> Note: Multiple events can be selected and indexed at the same time.
+
+USDC Token Contract address: [0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913](https://basescan.org/address/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913)
+
+![tutorial-base-erc20-transfer-4](/docs-assets/tutorial-base-erc20-transfer-4.png)
+
+5.  Finally, review the configuration and select `I’m finished` to start generating the indexer.
+
+![tutorial-base-erc20-transfer-5](/docs-assets/tutorial-base-erc20-transfer-5.png)
+
+---
+## Starting the Indexer
+
+Before starting your indexer, run the command below to ensure that no conflicting indexers are running.
+
+---
+### Stopping the indexer
+
+`envio stop`
+
+> Note: Ignore if you’re a first-time user.
+
+---
+### Start the indexer
+
+`envio dev`
+
+Now, let's run our indexer locally by running the command below.
+
+---
+## Overview of Generated Code
+
+Once that’s all done we can take a peek at the files generated by Envio in our source-code editor, in this example, we’re using [VS Code](https://code.visualstudio.com/) (Visual Code Studio).
+
+1.  **config.yaml**
+
+This file defines the network, start block, contract address, and events we want to index on Base.
+
+![tutorial-base-erc20-transfer-6](/docs-assets/tutorial-base-erc20-transfer-6.png)
+
+2.  **Schema.graphql**
+
+This file saves and defines the data structures for selected events, such as the `Transfer` event.
+
+![tutorial-base-erc20-transfer-7](/docs-assets/tutorial-base-erc20-transfer-7.png)
+
+3.  **event-handler**
+
+This file defines what happens when an event is emitted and saves what code is going to run, allowing customization in data handling.
+
+![tutorial-base-erc20-transfer-8](/docs-assets/tutorial-base-erc20-transfer-8.png)
+
+---
+## Exploring the Indexed Data
+
+Well done champions, now let’s explore the indexed data.
+
+1.  Head over to Hasura, type in the admin-secret password (“**testing**”), and click “API” in the above column to access the GraphQL endpoint to query real-time data.
+
+![tutorial-base-erc20-transfer-9](/docs-assets/tutorial-base-erc20-transfer-9.png)
+
+2.  Navigate to “Data” in the above column to monitor the indexing progress on Base through the events sync state table to see which block number you are on.
+
+![tutorial-base-erc20-transfer-10](/docs-assets/tutorial-base-erc20-transfer-10.png)
+
+3.  Now let’s analyze some events. Simply head back to “API” in the above column. From there you can run a query-specific event, in this example "**FiatTokenV2\_2 Transfer**" to explore details such as amounts, senders, recipients and values.
+
+_Once you have selected your desired events run the query by clicking the play button ( ▶️) to gain access to the real-time indexed data_
+
+**For example:**
+
+Let’s look at getting 10 `FiatTokenV2_2 Transfer` events, and order them by the amount we would like to appear first (in this case: desc = largest amount), who it’s from, who it’s to, and the value being transferred.
+
+![tutorial-base-erc20-transfer-11](/docs-assets/tutorial-base-erc20-transfer-11.png)
+
+Run queries to explore specific events, such as the largest USDC transfers.
+
+---
+## Conclusion
+
+Congratulations! You've successfully generated an indexer and indexed 3.6 million USDC token transfer events in under 5 minutes on Base.
+
+Be sure to check out our [video walkthrough](https://www.youtube.com/watch?v=e1xznmKBLa8&t=572s) on YouTube, including other tutorials that showcase Envio’s indexing features and capabilities.
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Tutorials/tutorial-erc20-token-transfers.md)
+
+[
+
+Previous
+
+Indexing OP Bridge Deposits
+
+](/docs/HyperIndex/tutorial-op-bridge-deposits)[
+
+Next
+
+Indexing Fuel Network
+
+](/docs/HyperIndex/tutorial-indexing-fuel)
+
+
+
+Source: https://docs.envio.dev/docs/getting-started
+Date Scraped: 2024-12-24T15:32:21.148Z
+
+# Documentation Content
+
+---
+window.location.href = '/docs/HyperIndex/getting-started' + window.location.search + window.location.hash;
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/tutorial-op-bridge-deposits
+Date Scraped: 2024-12-24T15:32:21.647Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Tutorials
+-   Indexing OP Bridge Deposits
+
+Version: v2
+
+On this page
+
+---
+# Indexing OP Bridge Deposits
+
+This tutorial will guide you through the process of indexing the Optimism Standard Bridge contracts on Optimism and Ethereum Mainnet in less than 5 minutes using the Envio HyperIndex no-code [contract import](https://docs.envio.dev/docs/HyperIndex/contract-import) feature.
+
+The Optimism Standard Bridge allows users to easily move ETH and most ERC-20 tokens between Ethereum and Optimism Mainnet. The goal is to index bridge deposit events by extracting the `DepositFinalized (index_topic_1 address l1Token, index_topic_2 address l2Token, index_topic_3 address from, address to, uint256 amount, bytes extraData)` logs emitted by the contracts.
+
+---
+## Prerequisites
+
+Before we start indexing, you'll need to make sure you have the [prerequisites](https://docs.envio.dev/docs/getting-started) installed.
+
+---
+## Initializing an Indexer
+
+Now that you have installed the prerequisite packages required, let’s jump into the practical steps of setting up the indexer.
+
+1.  Open your terminal in an empty repository and initialize a new indexer by running the command ‘envio init’
+
+![tutorial-op-bridge-1](/docs-assets/tutorial-op-bridge-1.png)
+
+2.  Name your indexer. In this example, we named our indexer “optimism-bridge-indexer” but feel free to name your indexer anything you prefer.
+
+![tutorial-op-bridge-2](/docs-assets/tutorial-op-bridge-2.png)
+
+3.  Choose a language, select contract import, and import from the block explorer. For this demonstration, we’ve chosen to use TypeScript as the language.
+
+![tutorial-op-bridge-3](/docs-assets/tutorial-op-bridge-3.png)
+
+> Note: Indexers on Envio can be written in JavaScript, TypeScript, or ReScript.
+
+4.  Choose `Block Explorer` then select `Optimism`, insert the Optimism bridge contract address from OP Etherscan, and select the events you would like to index. In this case, we’ll be indexing the `deposit finalized` event.
+
+To select an event navigate using the arrow keys (↑ ↓) and click the space bar once you have made your choice.
+
+> Note: Multiple events can be selected and indexed at the same time.
+
+Optimism bridge contract address: [0x4200000000000000000000000000000000000010](https://optimistic.etherscan.io/address/0x4200000000000000000000000000000000000010)
+
+![tutorial-op-bridge-4](/docs-assets/tutorial-op-bridge-4.png)
+
+5.  Add another contract address, in this case, we’ve imported from the block explorer just like before, added the Optimism Gateway smart contract address on Ethereum Mainnet from Etherscan, and opted to index the events `eth deposit initiated`. Finally, review the configuration and select `I’m finished` to start generating the indexer.
+
+Ethereum Mainnet contract address: [0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1](https://basescan.org/address/0x833589fcd6edb6e08f4c7c32d4f71b54bda02913)
+
+![tutorial-op-bridge-5](/docs-assets/tutorial-op-bridge-5.png) ![tutorial-op-bridge-6](/docs-assets/tutorial-op-bridge-6.png)
+
+---
+## Starting the Indexer
+
+Before starting your indexer, run the command below to ensure that no conflicting indexers are running.
+
+---
+### Stopping the indexer:
+
+`envio stop`
+
+> Note: Ignore if you’re a first-time user.
+
+---
+### Start the indexer:
+
+`envio dev`
+
+Now, let's run our indexer locally by running the command below.
+
+---
+## Overview of Generated Code
+
+Now let's take a glance at the key files generated by Envio:
+
+1.  config.yaml This file outlines networks, start blocks, addresses, and events we want to index, specifying Optimism and Ethereum Mainnet.
+
+![tutorial-op-bridge-7](/docs-assets/tutorial-op-bridge-7.png)
+
+2.  schema.graphql This file saves and defines the data structures for selected events, such as `eth deposit initiated` and `deposit finalized`.
+
+![tutorial-op-bridge-8](/docs-assets/tutorial-op-bridge-8.png)
+
+3.  event-handler.ts This file defines what happens when one of these events is emitted and saves what code is going to run, allowing customization in data handling.
+
+![tutorial-op-bridge-9](/docs-assets/tutorial-op-bridge-9.png)
+
+---
+## Exploring the Indexed Data
+
+Time to reap the rewards of your indexing efforts:
+
+1.  Head over to Hasura, type in the admin-secret password `testing`, and click “API” in the above column to access the GraphQL endpoint to query real-time data.
+
+![tutorial-op-bridge-10](/docs-assets/tutorial-op-bridge-10.png)
+
+2.  Now click on “Data” in the above column to monitor the indexing progress on Ethereum Mainnet and Optimism through the events sync state table to see which block number you are on.
+
+![tutorial-op-bridge-11](/docs-assets/tutorial-op-bridge-11.png)
+
+In general, if you wanted to index hundreds of millions of blocks and save hundreds and thousands of events this would usually take hours if not days using standard RPC but with Envio’s [HyperSync](https://docs.envio.dev/docs/hypersync) developers can reduce this process to a couple of minutes or even seconds.
+
+3.  Now let’s have a look at some of the events by heading back to “API” in the above column. From there you can run a query-specific event, in this case, "deposit finalized" to explore details such as amounts, senders, and recipients.
+
+![tutorial-op-bridge-12](/docs-assets/tutorial-op-bridge-12.png)
+
+**For example:** Let’s look at getting 10 "deposit finalized" events, and order them by the amount we would like to appear first (in this case: desc = greatest amount), the amounts being bridged, who it’s from, who it’s to, and the different L1 and L2 tokens.
+
+Once you have selected your desired events run the query by clicking the play button ( ▶️) to gain access to the real-time indexed data
+
+![tutorial-op-bridge-13](/docs-assets/tutorial-op-bridge-13.png)
+
+---
+## Conclusion
+
+And just like that, you've successfully indexed the Optimism Bridge contracts on both Optimism and Ethereum Mainnet using the Envio HyperIndex contract import feature.
+
+Be sure to check out our [video walkthrough](https://www.youtube.com/watch?v=9U2MTFU9or0) on YouTube, including other tutorials that showcase Envio’s indexing features and capabilities.
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Tutorials/tutorial-op-bridge-deposits.md)
+
+[
+
+Previous
+
+Contract State
+
+](/docs/HyperIndex/contract-state)[
+
+Next
+
+Indexing ERC20 Token Transfers on Base
+
+](/docs/HyperIndex/tutorial-erc20-token-transfers)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/running-locally
+Date Scraped: 2024-12-24T15:32:21.837Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Guides
+-   Running The Indexer Locally
+
+Version: v2
+
+On this page
+
+---
+# Running The Indexer Locally
+
+---
+## Starting the Indexer
+
+Remember to `cd` into your project directory if you have defined one during `envio init`.
+
+Before running the Envio CLI command to start the indexer locally, please make sure you have [Docker](https://www.docker.com/products/docker-desktop/) running.
+
+Run the indexer
+
+```codeBlockLines_e6Vv
+envio dev
+```
+
+This will automatically open up the Hasura dashboard where you can view the data that has been indexed.
+
+Admin-secret / password for local Hasura is `testing`.
+
+---
+## Stopping the Indexer
+
+To delete the docker images used for the local development environment, run
+
+```codeBlockLines_e6Vv
+envio stop
+```
+
+---
+## What next?
+
+---
+## Once you have successfully run the indexer locally, you can deploy the indexer onto Envio's [hosted service](/docs/HyperIndex/hosted-service).
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Guides/running-locally.md)
+
+[
+
+Previous
+
+Testing
+
+](/docs/HyperIndex/testing)[
+
+Next
+
+Navigating Hasura
+
+](/docs/HyperIndex/navigating-hasura)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/testing
+Date Scraped: 2024-12-24T15:32:22.638Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Guides
+-   Testing
+
+Version: v2
+
+On this page
+
+---
+# Testing
+
+---
+## Introduction
+
+Envio comes with a built-in testing library to assist developers write tests for their indexer. This library is specifically crafted to mock database states as well as events and assert event handler logic.
+
+The testing library is simply a series of helper functions that can be used to write tests, which means that any JavaScript-based testing framework can be used. In the examples below, we use [Mocha](https://mochajs.org/).
+
+---
+## Learn by doing
+
+Tests are written in JavaScript, TypeScript, and ReScript for the Greeter template and can be explored by following the steps below
+
+Generate `greeter` template in TypeScript using Envio CLI
+
+```codeBlockLines_e6Vv
+envio init template -l typescript -d greeter -t greeter -n greeter
+```
+
+Run tests
+
+```codeBlockLines_e6Vv
+pnpm test
+```
+
+See the `test/test.ts` file to understand how the tests are written.
+
+---
+## Getting Started
+
+This page assumes you have a functioning indexer setup for which you intend to write tests.
+
+Install preferred testing framework, for example [Mocha](https://mochajs.org/)
+
+-   Javascript
+-   Typescript
+-   Rescript
+
+```codeBlockLines_e6Vv
+pnpm i mocha
+```
+
+```codeBlockLines_e6Vv
+pnpm i mocha @types/mocha
+```
+
+```codeBlockLines_e6Vv
+pnpm i mocha rescript-mocha
+```
+
+Make sure to update your `bsconfig` file to add the test folder as a source and add `rescript-mocha` as a `bs-dependency`
+
+Validate you're using Envio `v0.0.26` or above
+
+```codeBlockLines_e6Vv
+envio -V
+```
+
+Create a `test` folder and a test file `test.js` inside it
+
+Add a test command to your `package.json`
+
+```codeBlockLines_e6Vv
+"test": "mocha",
+```
+
+Make sure to run `envio codegen` when changes are made to the config or schema files to regenerate the testing library (`TestHelpers` file).
+
+```codeBlockLines_e6Vv
+envio codegen
+```
+
+---
+## Writing tests
+
+---
+### Test library design
+
+The library is designed to allow developers to mock the database, mock events and assert different outcomes to the database from these events.
+
+The mock database is immutable and each action returns a new instance of the mocked database. This makes it robust and easy to test against previous states of the database.
+
+---
+### Example steps of what most tests will look like
+
+1.  Initialize the mock database
+2.  Create a mock event
+3.  Process the mock event on the mock database
+4.  Assert against the expected database state
+
+---
+## API
+
+The generated `TestHelpers` file exposes a few different functions:
+
+---
+#### \> `createMockDb`
+
+The ability to create an instance of the MockDb
+
+```codeBlockLines_e6Vv
+const mockDbInitial = MockDb.createMockDb();
+```
+
+---
+#### \> `set`
+
+The ability to set an entity of a MockDb
+
+```codeBlockLines_e6Vv
+const updatedMockDb = mockDbInitial.entities.EntityName.set(entity);
+```
+
+Where EntityName is the entity defined in the Schema
+
+---
+#### \> `get`
+
+1.  Ability to get an entity from the MockDb
+
+```codeBlockLines_e6Vv
+const entity = updatedMockDb.entities.EntityName.get(id);
+```
+
+Where EntityName is the entity defined in the Schema
+
+---
+#### \> `createMockEvent`
+
+The ability to create an instance of an event
+
+```codeBlockLines_e6Vv
+const eventMock = ContractName.EventName.createMockEvent({ params });
+```
+
+Where `ContactName` is the name of the contract defined in the config
+
+Where `EventName` is the name of the event being emitted
+
+Where `params` is an object of the parameters emitted in the event
+
+Users can also define specific event log details by using `mockEventData` object as a parameter inside `params` object. This is useful when you want to test against specific event log details like block number, transaction hash, etc.
+
+The `mockEventData` object can include the following properties:
+
+```codeBlockLines_e6Vv
+{  
+  chainId,  srcAddress,  logIndex,  block: {    number,    timestamp,    hash,    // and the following optionally based on field selection:    parentHash, nonce, sha3Uncles, logsBloom, transactionsRoot, stateRoot, receiptsRoot,    miner, difficulty, totalDifficulty, extraData, size, gasLimit, gasUsed, uncles,    baseFeePerGas, blobGasUsed, excessBlobGas, parentBeaconBlockRoot, withdrawalsRoot,    l1BlockNumber, sendCount, sendRoot, mixHash  },  transaction: {    // This is empty by default - but can have the following based on field selection:    number, timestamp, hash, parentHash, nonce, sha3Uncles, logsBloom, transactionsRoot,    stateRoot, receiptsRoot, miner, difficulty, totalDifficulty, extraData, size, gasLimit,    gasUsed, uncles, baseFeePerGas, blobGasUsed, excessBlobGas, parentBeaconBlockRoot,    withdrawalsRoot, l1BlockNumber, sendCount, sendRoot, mixHash,  }}
+```
+
+Please see section in config file on how to customize available block and transaction fields.
+
+---
+#### \> `processEvent`
+
+The ability to process an event on a mockDb
+
+```codeBlockLines_e6Vv
+const updatedMockDbFromEvent = await ContractName.EventName.processEvent({  
+  event: eventMock,  mockDb: updatedMockDb,});
+```
+
+Where `ContactName` is the name of the contract defined in the config
+
+Where `EventName` is the name of the event being emitted
+
+---
+## Assertions
+
+In the examples we use NodeJS's built-in assert module but you can use other popular JavaScript-based assertion libraries like [chai](https://www.chaijs.com/) or [expect](https://github.com/Automattic/expect.js).
+
+---
+## Examples
+
+---
+### A `NewGreeting` event creates a `User` entity
+
+-   Javascript
+-   Typescript
+-   Rescript
+
+```codeBlockLines_e6Vv
+it("A NewGreeting event creates a User entity", async () => {  
+  // Initializing the mock database  const mockDbInitial = MockDb.createMockDb();  
+  // Initializing values for mock event  const userAddress = Addresses.defaultAddress;  const greeting = "Hi there";  
+  // Creating a mock event  const mockNewGreetingEvent = Greeter.NewGreeting.createMockEvent({    greeting: greeting,    user: userAddress,  });  
+  // Processing the mock event on the mock database  const updatedMockDb = await Greeter.NewGreeting.processEvent({    event: mockNewGreetingEvent,    mockDb: mockDbInitial,  });  
+  // Expected entity that should be created  const expectedUserEntity = {    id: userAddress,    latestGreeting: greeting,    numberOfGreetings: 1,    greetings: [greeting],  };  
+  // Getting the entity from the mock database  const actualUserEntity = updatedMockDb.entities.User.get(userAddress);  
+  // Asserting that the entity in the mock database is the same as the expected entity  assert.deepEqual(expectedUserEntity, actualUserEntity);});
+```
+
+```codeBlockLines_e6Vv
+it("A NewGreeting event creates a User entity", async () => {  
+  // Initializing the mock database  const mockDbInitial = MockDb.createMockDb();  
+  // Initializing values for mock event  const userAddress = Addresses.defaultAddress;  const greeting = "Hi there";  
+  // Creating a mock event  const mockNewGreetingEvent = Greeter.NewGreeting.createMockEvent({    greeting: greeting,    user: userAddress,  });  
+  // Processing the mock event on the mock database  const updatedMockDb = await Greeter.NewGreeting.processEvent({    event: mockNewGreetingEvent,    mockDb: mockDbInitial,  });  
+  // Expected entity that should be created  const expectedUserEntity: UserEntity = {    id: userAddress,    latestGreeting: greeting,    numberOfGreetings: 1,    greetings: [greeting],  };  
+  // Getting the entity from the mock database  const actualUserEntity = updatedMockDb.entities.User.get(userAddress);  
+  // Asserting that the entity in the mock database is the same as the expected entity  assert.deepEqual(expectedUserEntity, actualUserEntity);});
+```
+
+```codeBlockLines_e6Vv
+it("A NewGreeting event creates a User entity", async () => {  
+    // Initializing the mock database    let mockDbInitial = TestHelpers.MockDb.createMockDb()  
+    // Initializing values for mock event    let userAddress = Ethers.Addresses.defaultAddress    let greeting = "Hi there"  
+    // Creating a mock event    let mockNewGreetingEvent = TestHelpers.Greeter.NewGreeting.createMockEvent({      greeting,      user: userAddress,    })  
+    // Processing the mock event on the mock database    let updatedMockDb = await TestHelpers.Greeter.NewGreeting.processEvent({      event: mockNewGreetingEvent,      mockDb: mockDbInitial,    })  
+    // Expected entity that should be created    let expectedUserEntity: Types.userEntity = {      id: userAddress->Ethers.ethAddressToString,      latestGreeting: greeting,      numberOfGreetings: 1,      greetings: [greeting],    }  
+    // Getting the entity from the mock database    let actualUserEntity =      updatedMockDb.entities.user.get(userAddress->Ethers.ethAddressToString)->Option.getExn  
+    // Asserting that the entity in the mock database is the same as the expected entity    Assert.deep_equal(expectedUserEntity, actualUserEntity)  })
+```
+
+---
+### 2 Greetings from the same users results in that user having a greeter count of 2
+
+-   Javascript
+-   Typescript
+-   Rescript
+
+```codeBlockLines_e6Vv
+it("2 Greetings from the same users results in that user having a greeter count of 2", async () => {  
+  // Initializing the mock database  const mockDbInitial = MockDb.createMockDb();  // Initializing values for mock event  const userAddress = Addresses.defaultAddress;  const greeting = "Hi there";  const greetingAgain = "Oh hello again";  
+  // Creating a mock event  const mockNewGreetingEvent = Greeter.NewGreeting.createMockEvent({    greeting: greeting,    user: userAddress,  });  
+  // Creating a mock event  const mockNewGreetingEvent2 = Greeter.NewGreeting.createMockEvent({    greeting: greetingAgain,    user: userAddress,  });  
+  // Processing the mock event on the mock database  const updatedMockDb = await Greeter.NewGreeting.processEvent({    event: mockNewGreetingEvent,    mockDb: mockDbInitial,  });  
+  // Processing the mock event on the updated mock database  const updatedMockDb2 = await Greeter.NewGreeting.processEvent({    event: mockNewGreetingEvent2,    mockDb: updatedMockDb,  });  
+  // Getting the entity from the mock database  const actualUserEntity = updatedMockDb2.entities.User.get(userAddress);  
+  // Asserting that the field value of the entity in the mock database is the same as the expected field value  assert.equal(2, actualUserEntity?.numberOfGreetings);});
+```
+
+```codeBlockLines_e6Vv
+it("2 Greetings from the same users results in that user having a greeter count of 2", async () => {  
+  // Initializing the mock database  const mockDbInitial = MockDb.createMockDb();  // Initializing values for mock event  const userAddress = Addresses.defaultAddress;  const greeting = "Hi there";  const greetingAgain = "Oh hello again";  
+  // Creating a mock event  const mockNewGreetingEvent = Greeter.NewGreeting.createMockEvent({    greeting: greeting,    user: userAddress,  });  
+  // Creating a mock event  const mockNewGreetingEvent2 = Greeter.NewGreeting.createMockEvent({    greeting: greetingAgain,    user: userAddress,  });  
+  // Processing the mock event on the mock database  const updatedMockDb = await Greeter.NewGreeting.processEvent({    event: mockNewGreetingEvent,    mockDb: mockDbInitial,  });  
+  // Processing the mock event on the updated mock database  const updatedMockDb2 = await Greeter.NewGreeting.processEvent({    event: mockNewGreetingEvent2,    mockDb: updatedMockDb,  });  
+  // Getting the entity from the mock database  const actualUserEntity = updatedMockDb2.entities.User.get(userAddress);  
+  // Asserting that the field value of the entity in the mock database is the same as the expected field value  assert.equal(2, actualUserEntity?.numberOfGreetings);});
+```
+
+```codeBlockLines_e6Vv
+it("2 Greetings from the same users results in that user having a greeter count of 2", async () => {  
+    // Initializing the mock database    let mockDbInitial = TestHelpers.MockDb.createMockDb()  
+    // Initializing values for mock event    let userAddress = Ethers.Addresses.defaultAddress    let greeting = "Hi there"    let greetingAgain = "Oh hello again"  
+    // Creating a mock event    let mockNewGreetingEvent = TestHelpers.Greeter.NewGreeting.createMockEvent({      greeting,      user: userAddress,    })  
+    // Creating a mock event    let mockNewGreetingEvent2 = TestHelpers.Greeter.NewGreeting.createMockEvent({      greeting: greetingAgain,      user: userAddress,    })  
+    // Processing the mock event on the mock database    let updatedMockDb = await TestHelpers.Greeter.NewGreeting.processEvent({      event: mockNewGreetingEvent,      mockDb: mockDbInitial,    })  
+    // Processing the mock event on the updated mock database    let updatedMockDb2 = await TestHelpers.Greeter.NewGreeting.processEvent({      event: mockNewGreetingEvent2,      mockDb: updatedMockDb,    })  
+    let expectedGreetingCount = 2  
+    // Getting the entity from the mock database    let actualUserEntity =      updatedMockDb2.entities.user.get(userAddress->Ethers.ethAddressToString)->Option.getExn  
+    // Asserting that the field value of the entity in the mock database is the same as the expected field value    Assert.equal(actualUserEntity.numberOfGreetings, expectedGreetingCount)  })
+```
+
+---
+## Troubleshooting
+
+The testing code is available in versions of Envio `v0.0.26` and above.
+
+Make sure to import relevant files and packages into your test file, it might look something like this;
+
+-   Javascript
+-   Typescript
+-   Rescript
+
+```codeBlockLines_e6Vv
+const assert = require("assert");  
+const { MockDb, Greeter } = require("../generated/src/TestHelpers.bs");  
+const { Addresses } = require("../generated/src/bindings/Ethers.bs");
+```
+
+```codeBlockLines_e6Vv
+import assert from "assert";  
+import { MockDb, Greeter } from "../generated/src/TestHelpers.gen";  
+import { UserEntity } from "../generated/src/Types.gen";  
+import { Addresses } from "../generated/src/bindings/Ethers.gen";
+```
+
+```codeBlockLines_e6Vv
+open RescriptMocha  
+open Mocha  
+open Belt
+```
+
+> Dev note: 📢 When working in ReScript make sure to update your `bsconfig` file to add the test folder as a source and add `rescript-mocha` as a `bs-dependency`
+
+If you encounter any issues or have questions, please reach out to us on [Discord](https://discord.gg/Q9qt8gZ2fX)
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Guides/testing.mdx)
+
+[
+
+Previous
+
+Writing Event Handlers
+
+](/docs/HyperIndex/event-handlers)[
+
+Next
+
+Running The Indexer Locally
+
+](/docs/HyperIndex/running-locally)
+
+
+
+Source: https://docs.envio.dev/docs/HyperIndex/navigating-hasura
+Date Scraped: 2024-12-24T15:32:23.131Z
+
+# Documentation Content
+
+---
+-   [](/)
+-   Guides
+-   Navigating Hasura
+
+Version: v2
+
+On this page
+
+---
+# Navigating Hasura
+
+> This page is only relevant when testing on a local machine or using a self-hosted version of Envio that uses Hasura.
+
+---
+## Introduction
+
+This page explains how to navigate the Hasura dashboard, focusing on two key tabs: the API and Data tabs. These tabs allow you to interact with and view indexed results.
+
+The screenshots provided below come from the [Greeter tutorial](/docs/HyperIndex/greeter-tutorial).
+
+---
+## API tab
+
+The API tab lets you execute GraphQL queries and mutations on indexed data. It serves as a GraphQL playground for testing your API calls.
+
+![/hasura-api-tab](/img/hasura-api-tab.png)
+
+Under the explorer, all entities defined in the `schema.graphql` file should appear. By default, Envio will also display [`dynamic_contracts`](/docs/HyperIndex/dynamic-contracts) and `raw_events` (`raw_events` doesn't get populated for Fuel indexers) that have been used in the indexing process.
+
+In the GraphQL playground, you can structure and test your API calls using the indexed data.
+
+For additional information on GraphQL queries, visit Hasura's [quickstart guide](https://hasura.io/docs/latest/queries/quickstart/).
+
+---
+## Data tab
+
+The Data tab allows you to view and manage your database schema, tables, and relationships, providing crucial insight into the structure of the indexed data.
+
+![/hasura-data-tab](/img/hasura-data-tab.png)
+
+In the public schema, all indexed tables should appear. Again, by default, [`dynamic_contracts`](/docs/HyperIndex/dynamic-contracts) and `raw_events` tables will also be displayed.
+
+To verify that the data has been correctly indexed, it is advisable to check the content of the entity tables and the `db_write_timestamp` values for the rows in each table.
+
+Older `db_write_timestamp` values might signify stale data from a previous indexing run.
+
+* * *
+
+[Edit this page](https://github.com/enviodev/docs/edit/main/docs/HyperIndex/Guides/navigating-hasura.md)
+
+[
+
+Previous
+
+Running The Indexer Locally
+
+](/docs/HyperIndex/running-locally)[
+
+Next
+
+IPFS
+
+](/docs/HyperIndex/ipfs)
+
+
+

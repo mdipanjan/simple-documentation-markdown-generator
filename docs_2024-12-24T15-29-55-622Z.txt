@@ -1,0 +1,42 @@
+Source: https://docs.envio.dev/docs/HyperIndex/overview
+Date Scraped: 2024-12-24T15:29:55.617Z
+
+# Documentation Content
+
+---
+Version: v2
+
+On this page
+
+HyperIndex is an open development framework for building backend's for blockchain applications. It is designed to be easy to use, extremely fast, and extensible.
+
+---
+## Features[​](/docs/HyperIndex/overview#features "Direct link to Features")
+
+```
+✅ - Quickstart templates✅ - Real-time indexing✅ - Multichain indexing✅ - Local development✅ - Reorg support✅ - GraphQL API✅ - Any EVM & Fuel✅ - 5000+ events indexed per second historical backfill✅ - Auto generate an indexer with contract address✅ - Flexible language support (JavaScript, TypeScript, ReScript)✅ - 100,000+ factory contracts support✅ - Onchain & offchain data support✅ - Hosted service or easy self hosting✅ - Detailed logging & error messaging✅ - Actions to trigger external API services✅ - Topic based indexing support (wildcard indexing)
+```
+
+---
+## Features roadmap[​](/docs/HyperIndex/overview#features-roadmap "Direct link to Features roadmap")
+
+```
+⬜ - Interval handlers⬜ - Block handlers⬜ - Call handlers⬜ - Alternative data syncs
+```
+
+---
+## Quick links[​](/docs/HyperIndex/overview#quick-links "Direct link to Quick links")
+
+-   [Github](https://github.com/enviodev/hyperindex) ⭐
+-   [Support](https://discord.gg/Q9qt8gZ2fX)
+
+note
+
+Please use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) for Windows
+
+-   [Features](/docs/HyperIndex/overview#features)
+-   [Features roadmap](/docs/HyperIndex/overview#features-roadmap)
+-   [Quick links](/docs/HyperIndex/overview#quick-links)
+
+
+
